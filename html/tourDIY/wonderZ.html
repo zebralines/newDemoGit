@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>确认订单</title>
+		<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../../plugins/swiper/swiper.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/aui.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/common.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/fans.css" />
+	</head>
+	<style type="text/css">
+		.tourDIY {
+			background: #fff;
+		}
+
+		.navTab {
+			width: 100%;
+			height: 10vw;
+			border-top: 1px solid #eee;
+			padding: 0 10%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: #666;
+		}
+
+		.navTab div {
+			width: 33%;
+			height: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 14px;
+		}
+
+		.activeTab {
+			color: #F0455C;
+			position: relative;
+		}
+
+		.activeTab:after {
+			width: 12vw;
+			height: 2px;
+			background: #F0455C;
+			position: absolute;
+			top: 9vw;
+			left: 7vw;
+			content: '';
+		}
+
+		.navContent {
+			width: 100%;
+			padding: 2vw 4%;
+		}
+
+		.ContentList,
+		.ContentList2 {
+			width: 100%;
+			padding: 3vw 0;
+			border-bottom: 1px solid #eee;
+			display: flex;
+			align-items: center;
+		}
+
+		.ContentList img {
+			width: 25vw;
+			height: 25vw;
+			margin-right: 3vw;
+			color: #333;
+			border-radius: 3px;
+		}
+
+		.tourText,
+		.tourText2 {
+			font-size: 15px;
+			width: 70%;
+		}
+
+		.tourText>div:nth-child(1),
+		.tourText2>div:nth-child(1) {
+			font-size: 17px;
+		}
+
+		.tourText>div:nth-child(2) {
+			font-size: 16px;
+			color: #F0455C;
+			margin: 2vw 0;
+		}
+
+		.tourText>div:nth-child(3) {
+			font-size: 14px;
+			color: #999;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+
+		.WonderType {
+			width: 15vw;
+			height: 7vw;
+			border-radius: 3px;
+			color: #fff;
+			font-size: 13px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: #F0455C;
+		}
+
+		.ContentList2 img {
+			width: 33vw;
+			height: 25vw;
+			border-radius: 3px;
+			margin-right: 3vw;
+		}
+
+		.tourText2>div:nth-child(2) {
+			margin: 2vw 0;
+			font-size: 16px;
+			color: #666;
+		}
+
+		.tourText2>div:nth-child(3) {
+			margin: 2vw 0;
+			font-size: 15px;
+			color: #999;
+		}
+
+		.succOrder {
+			width: 100%;
+			padding: 2vw 5%;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			font-size: 15px;
+			color: #666;
+		}
+
+		.wonderBtn {
+			width: 100%;
+			display: flex;
+			align-items: center;
+			height: 12vw;
+			justify-content: flex-end;
+
+		}
+
+		.wonderBtn>div {
+			width: 30vw;
+			height: 9vw;
+			border-radius: 30px;
+			color: #fff;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: #F0455C;
+			font-size: 14px;
+		}
+
+		.userComment {
+			width: 100%;
+			padding: 2vw 4%;
+		}
+
+		.userComment>div:nth-child(1) {
+			width: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+
+		.userComment>div:nth-child(1) input {
+			width: 80%;
+			height: 9vw;
+			background: #eee;
+			border-radius: 30px;
+			padding-left: 3vw;
+			font-size: 15px;
+		}
+
+		.userComment>div:nth-child(1) .submit {
+			width: 18%;
+			height: 9vw;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: #fff;
+			background: #F0455C;
+			border-radius: 30px;
+			font-size: 14px;
+
+		}
+
+		.uploadImg {
+			width: 35vw;
+			height: 35vw;
+			margin-top: 6vw;
+		}
+
+		.uploadImg img {
+			width: 100%;
+			height: 100%;
+		}
+
+		.chooseImg {
+			width: 100%;
+			height: 100%;
+			position: fixed;
+			top: 0;
+			left: 0;
+			z-index: 100;
+			opacity: 0;
+		}
+		.uploadProcess{
+			width: 100vw;
+			height: 100vh;
+			background: rgba(0,0,0,0.3);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			position: fixed;
+			top: 0;
+			left: 0;
+			z-index: 1200;
+		}
+		.processContent{
+			width: 90%;
+		}
+		.processContent>div:nth-child(1){
+			display: flex;
+			align-items: center;
+			justify-content: flex-end;
+		}
+		.processContent>div:nth-child(1) img{
+			width: 8vw;
+			height: 8vw;
+		}
+		.processContent>div:nth-child(2){
+			width: 100%;
+			padding: 3vw 5%;
+			border-radius: 8px;
+			background: #fff;
+			margin-top: 2vw;
+			font-size: 14px;
+			color: #333;
+			max-height: 60vh;
+			min-height: 20vh;
+			overflow: auto;
+		}
+		.processText{
+			width: 100%;
+			margin-top:2vw;
+		}
+		.processText>div:nth-child(2){
+			font-size: 12px;
+			color: #999;
+			margin-top: 1vw;
+			text-align: right;
+		}
+	</style>
+	<body>
+		<div class="tourDIY box-warp" id="tourDIY" v-cloak>
+
+			<div class='normal-head-box' id='header'>
+				<div class='padding-t-10'>
+					<img src="../../image/back.png" @click="back" class='normal-bk-img'>
+
+					<p class='normal-head-title'>拼团订单</p>
+				</div>
+			</div>
+			<div style="width: 100px;height: 18vw;">
+
+			</div>
+			<div class="navContent">
+				<div class="">
+					<div class="ContentList2">
+						<img :src="orderData.goods.thumb">
+						<div class="tourText2">
+							<div>{{orderData.goods.title}}</div>
+							<div>金额{{orderData.price}} | {{orderData.active.user_num}}人团</div>
+							<div>
+								<div v-if="status=='已中奖'" style="float:left">
+									<img src="../../image/gift.png" style="width:30px;height:20px;float:left">
+									<ff style="color:red">您已拼中</ff>:送{{orderData.pt_num}}权益，冻结余额送{{orderData.freeze_num}}元
+								</div>
+								<!-- <div v-if="orderData.is_reward=='未中奖'">金额已原路退回</div> -->
+								<div v-if="orderData.is_reward=='未中奖'" style="float:left">
+									<img src="../../image/bottomNav3.png" style="width:20px;height:20px;float:left">
+									<ff>您未拼中</ff>:金额已退回余额，再接再厉！
+								</div>
+
+
+							</div>
+						</div>
+					</div>
+					<div class="succOrder" v-for="(prople,p) in humanList" :key="p">
+						<div>拼团会员{{p+1}}</div>
+						<div v-if="prople.is_reward =='已中奖'">已拼中</div>
+						<div v-if="prople.is_reward =='未中奖'">未拼中</div>
+					</div>
+					<div class="wonderBtn" v-if="status=='已中奖'">
+						<div class="" @click="seeProcess">
+							查看物流
+						</div>
+					</div>
+					<div class="wonderBtn" v-if="status=='已中奖'">
+						<div class="comment" @click="comment">
+							评价
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="userComment" v-if="commontUpload">
+				<div>
+					<input type="" v-model="commentText" name="" id="" value="" placeholder="请输入您的评价" />
+					<div class="submit" @click="uploadComment">
+						提交
+					</div>
+				</div>
+				<div class="uploadImg">
+					<img :src="uploadImageUrl" @click="uploadImg">
+				</div>
+			</div>
+			<div class="uploadProcess" v-if="processS">
+				<div class="processContent">
+					<div>
+						<img src="../../image/chaq.png" @click="processImg">
+					</div>
+					<div>
+						<div class="processText" v-for="(pto,p) in processData" :key="p">
+							<div>{{pto.context}}</div>
+							<div>{{pto.time}}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../plugins/swiper/swiper.min.js"></script>
+<script type="text/javascript" src="../../script/vue/vue.js"></script>
+<script type="text/javascript" src="../../script/jquery.min.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript" src="../../script/usermgr.js"></script>
+<script type="text/javascript" src="../../script/user/fensi.js"></script>
+<script type="text/javascript">
+	apiready = function() {
+		$api.fixStatusBar($api.dom('#header'));
+		$api.fixStatusBar($api.dom('.head_classify'));
+		var tour = new Vue({
+			el: '#tourDIY',
+			data: function() {
+				return {
+					navTb: '',
+					dateType: '',
+					orderData: {},
+					commontUpload: false,
+					uploadImageUrl: '../../image/shangchuansucai.png',
+					uploadImgSub: '',
+					goodID: '',
+					humanList: [],
+					commentText:'',
+					status:'',
+					processData:[],
+					processS:false
+				}
+			},
+			created() {
+				console.log(api.pageParam.id)
+				this.status = api.pageParam.status
+				this.wonder()
+			},
+			mounted() {
+				var tourSwiper = new Swiper('.swiper-container', {
+					autoplay: true,
+				});
+				$api.addEvt($api.dom('.normal-bk-img'), 'click', function(){
+					console.log(111111111)
+					api.closeWin();
+				});
+			},
+			methods: {
+				wonder() {
+					let that = this
+					var parms = {
+						url: "GroupOrder/detail",
+						values: {
+							token: usermgr.get_usertoken(),
+							order_id: api.pageParam.id
+						},
+						callback: function(ret) {
+							console.log(JSON.stringify(ret))
+							that.orderData = ret.data.order
+							that.goodID = ret.data.order.goods_id
+							that.humanList = ret.data.group
+						}
+					}
+					JM_POST(parms);
+				},
+				seeProcess(){
+					let that = this
+					var parms = {
+						url: "GroupOrder/logisticsInfo",
+						values: {
+							token: usermgr.get_usertoken(),
+							order_id: api.pageParam.id
+						},
+						callback: function(ret) {
+							console.log(JSON.stringify(ret))
+							if(ret.data!=''){
+								that.processData = ret.data.data
+								that.processS = true
+							}else{
+								alert('暂时没有物流信息')
+							}
+
+						}
+					}
+					JM_POST(parms);
+				},
+				processImg(){
+					this.processS = false
+				},
+				back(){
+					api.closeWin();
+				},
+				tourDetail() {
+					api.openWin({
+						name: 'tourdetail',
+						url: './tourDIYDetail.html'
+					});
+				},
+				comment() {
+					this.commontUpload = !this.commontUpload
+				},
+				uploadComment(){
+					let that = this
+					var parms = {
+						url: "GroupOrder/commentOrder",
+						values: {
+							token:usermgr.get_usertoken(),
+							goods_id:this.goodID,
+							content:this.commentText,
+							img:this.uploadImgSub
+						},
+						callback: function(ret) {
+							console.log(JSON.stringify(ret))
+							if(ret.data=='评论成功'){
+								alert(ret.data)
+								that.commontUpload = false
+							}
+						}
+					}
+					JM_POST(parms);
+				},
+				uploadImg() {
+					let that = this
+					api.getPicture({
+						sourceType: 'album',
+						mediaValue: 'pic',
+						destinationType: 'base64',
+						allowEdit: true,
+						quality: 50,
+						targetWidth: 100,
+						targetHeight: 100,
+						saveToPhotoAlbum: false
+					}, function(ret, err) {
+						if (ret) {
+							// alert(JSON.stringify(ret))
+							that.uploadImageUrl = ret.base64Data
+							var parms = {
+								url: "GroupOrder/upload",
+								values: {
+									token:usermgr.get_usertoken(),
+									img: ret.base64Data
+								},
+								callback: function(ret) {
+									console.log(JSON.stringify(ret))
+								}
+							}
+							JM_POST(parms);
+						} else {
+							alert(JSON.stringify(err));
+						}
+					});
+				}
+			}
+		})
+		   //下拉刷新
+      api.setRefreshHeaderInfo({
+          visible: true,
+          loadingImg: 'widget://image/refresh.png',
+          bgColor: '#fff',
+          textColor: '#ccc',
+          textDown: '下拉刷新...',
+          textUp: '松开试试...',
+          showTime: true
+      }, function(ret, err) {
+        setTimeout(()=>{
+          api.refreshHeaderLoadDone();
+        },1000)
+
+      });
+     //下拉刷新
+	};
+</script>

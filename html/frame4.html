@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>我的</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../plugins/swiper/swiper.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/frame4.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css"/>
+    <style>
+		.levelUser{
+			width: 20vw;
+			height: 5.5vw;
+			color: #fff;
+			border-radius: 30px;
+			background: #F09619;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin-left: 3vw;
+			font-size: 12px;
+		}
+    </style>
+</head>
+<body  >
+    <div class = 'main-head'>
+        <img class = 'head-main-img' src="../image/thum.png" >
+        <div class = 'nick-name-box' style="display: flex;align-items: center;">
+            <span class = 'nickname-span'>芙惠X</span>
+            <!-- <img class = 'user-sign' src="../image/user/level1.png"> -->
+			<div class="levelUser" id="user_level">
+
+			</div>
+        </div>
+        <div class = 'code-box'>
+            <span>邀请码：<span class = 'code-span'></span><span class = 'copy-span'>复制</span></span>
+        </div>
+
+
+        <img class = 'mess-img' style="display:none" src="../image/user/messw.png" alt="placeholder+image">
+        <img class = 'set-img' src="../image/user/set.png" alt="placeholder+image">
+<!--
+         <div class = 'fans-box'>
+            <span>粉丝<span style = 'margin-left: 5px;'>0</span></span>
+            <span style = 'margin-left: 15px;'>成长值<span style = 'margin-left: 5px;'>18</span></span>
+        </div> -->
+
+     <!-- <div class = 'head-money-box' id="el_div4" >
+            <div class = 'head-money-body'>
+                <div style = 'float:left;'>
+                    <p class = 'head-price-box'>余额 <span>￥<span id="yuee"></span></span></p>
+					<div style="font-size: 12px;color: #666;text-align: left;">
+						冻结余额: <span id="dyuee">0</span>
+					</div>
+                    <p style = 'font-size: 12px;color:#7a7a7a;margin-top: 3px;-webkit-transform:scale(0.8);margin-left: -18px;'>每个月25号可提现上月结算收益 ></p>
+
+				</div>
+				<div>
+
+					<div class = 'head-take-btn' onclick = 'openwin("user/frame_tixian");'>
+					    立即提现
+					</div>
+					<div class = 'head-take-btn' onclick = 'openwin("user/rechange");' style="margin-top: 5px;">
+						充值
+					</div>
+				</div>
+            </div>
+        </div> -->
+    </div>
+
+    <!-- 预估收益 -->
+    <div class = 'income-box' id="el_div3" >
+
+        <div class = 'now-month-icome-box' style="width:33.3%">
+            <span class = 'now-icome-price-box'><span class = 'now-month-icome-price' id="yuee">0</span> </span>
+            <p class = 'now-title-p'  >我的余额</p>
+            <span style = 'position: absolute;top:10px;right: 0px;color:#eee;'>|</span>
+        </div>
+		<div class = 'now-month-icome-box' style="width:33.3%" onclick ='openwin("user/PTList")'  >
+		    <span class = 'now-icome-price-box'><span class = 'now-month-icome-price' id="now-title-p_5">0</span> </span>
+		    <p class = 'now-title-p'  >PT</p>
+		</div>
+         <div class = 'now-month-icome-box' style="width:33.3%" onclick = 'openuserwin("quanyi.html");'>
+            <span class = 'now-icome-price-box'><span class = 'now-month-icome-price' id="quanyibi">0</span> </span>
+            <p class = 'now-title-p'  >权益</p>
+            <span style = 'position: absolute;top:10px;right: 0px;color:#eee;'>|</span>
+            <!-- <p class = 'prev-title-p'>上月结算 <span class = 'prev-dol'>￥</span><span class = 'prev-price'>0</span></p> -->
+        </div>
+         <!-- <div class = 'now-month-icome-box'>
+            <span class = 'now-icome-price-box'><span class = 'now-month-icome-price' id="dyuee">0</span> </span>
+            <p class = 'now-title-p'  >冻结余额</p>
+            <span style = 'position: absolute;top:10px;right: 0px;color:#eee;'>|</span>
+            <p class = 'prev-title-p'>上月结算 <span class = 'prev-dol'>￥</span><span class = 'prev-price'>0</span></p>
+        </div> -->
+        <!-- <div class = 'now-month-icome-box'  >
+            <span class = 'now-icome-price-box'><span class = 'now-month-icome-price' id="now-title-p_4">0</span> </span>
+            <p class = 'now-title-p'  >米币</p>
+			<span style = 'position: absolute;top:10px;right: 0px;color:#eee;'>|</span>
+        </div> -->
+
+
+    </div>
+
+
+     <!-- 4个小图标 -->
+     <div class = 'icon-four-box' id="el_div2">
+         <div class="aui-row aui-row-padded userATab">
+            <div class=" icon-4-box" onclick = 'openuserwin("shouyiF.html");'>
+                <img class = 'icon-4-img' src="../image/user/sy.png"/>
+                <p>我的收益</p>
+            </div>
+            <div class=" icon-4-box" onclick = 'openwin("user/frame_order");'>
+                <img class = 'icon-4-img' src="../image/user/dd.png"/>
+                <p>淘客订单</p>
+            </div>
+            <div class=" icon-4-box" onclick = 'openwin("user/frame_fensi");'>
+                <img class = 'icon-4-img' src="../image/user/fs.png"/>
+                <p>我的粉丝</p>
+            </div>
+           <div class=" icon-4-box" onclick = 'openyq()'>
+                <img class = 'icon-4-img' src="../image/user/yq.png"/>
+                <p>推广二维码</p>
+            </div>
+			<div class=" icon-4-box" onclick = 'openwin("tourDIY/tourOrder")'>
+			     <img class = 'icon-4-img' src="../image/rename2.png"/>
+			     <p>拼团订单</p>
+			</div>
+			<div class=" icon-4-box" onclick = 'openwin("user/rechange");'>
+			      <img class = 'icon-4-img' src="../image/chongzhi.png"/>
+			      <p>充值</p>
+			 </div>
+			<div class=" icon-4-box" onclick = 'openwin("user/frame_tixian")'>
+				 <img class = 'icon-4-img' src="../image/tixian.png"/>
+				 <p>提现</p>
+			 </div>
+        </div>
+     </div>
+
+
+     <!-- 小轮播 -->
+     <div style = 'background-color: #fff; width:95%;text-align:center; height:100px; margin-left:2.5%; padding-top:10px; border-radius:15px; margin-top:5px; '  >
+            <div class="swiper-container" id = "swiper-container-thr" style = ' margin-left:2.6%'>
+                <div class="swiper-wrapper">
+                  <div class="swiper-slide" onclick='openBrowser(app.urls.alibao,"红包")' >
+                    <img  src="http://nn.52juanmi.com/2019042922014247baf3668.jpg"   style = 'width: 340px;height: 80px;border-radius: 15px;'>
+                  </div>
+                  <div class="swiper-slide" onclick='openBrowser("https://mos.m.taobao.com/activity_newer?from=pub&pid=mm_10898238_266600236_78469400021","淘宝拉新")' >
+                    <img  src="http://nn.52juanmi.com/201905021348241b6607659.png"   style = 'width: 340px;height: 80px;border-radius: 15px;'>
+                  </div>
+
+                </div>
+
+            </div>
+     </div>
+
+
+     <!-- 会员专享 -->
+     <div class = "vip-auth-box" id="el_div1">
+         <p class = 'class-p-title'>会员福利</p>
+         <p class = 'class-p-title_line'></p>
+         <div class="aui-row aui-row-padded">
+            <div class="aui-col-xs-4 icon-4-box " onclick="alert('暂未开放，敬请期待~')">
+				<!-- onclick="openwin('jm_title','低价好货',app.farme_thui)" -->
+                <img class = 'icon-3-img' src="../image/zhifu.png"/>
+                <p class = 'vip-p-title'>PT支付</p>
+                <p class = 'vip-f-title'>快捷支付</p>
+            </div>
+            <div class="aui-col-xs-4 icon-4-box "  onclick="alert('暂未开放，敬请期待~')">
+				<!-- onclick="openwin('huodong/frame_signin','签到',0)" -->
+                <img class = 'icon-3-img' src="../image/game.png"/>
+                <p class = 'vip-p-title'>PT游戏</p>
+                 <p class = 'vip-f-title'>享受娱乐</p>
+            </div>
+            <div class="aui-col-xs-4 icon-4-box "   onclick="alert('暂未开放，敬请期待~')">
+				<!-- id="kefu" -->
+				<!-- onclick='openBrowser("https://wulianjiuzhou.com/app/index.php?i=297&c=entry&eid=438","在线客服")' -->
+                <img class = 'icon-3-img' src="../image/huangou.png"/>
+                <p class = 'vip-p-title'>PT换购</p>
+                 <p class = 'vip-f-title'>方便快捷</p>
+            </div>
+            <div class="aui-col-xs-4 icon-4-box "  onclick="jiayou()" >
+				<!-- onclick="openwin('huodong/frame_yqhy','邀请',0)" -->
+                <img class = 'icon-3-img' src="../image/jiayou.png"/>
+                <p class = 'vip-p-title'>加油特惠</p>
+                <p class = 'vip-f-title'>生活快捷</p>
+            </div>
+			<div class="aui-col-xs-4 icon-4-box "  onclick="alert('暂未开放，敬请期待~')" >
+				<!-- onclick="openwin('huodong/frame_yqhy','邀请',0)" -->
+			    <img class = 'icon-3-img' src="../image/zhibo.png"/>
+			    <p class = 'vip-p-title'>PT直播</p>
+			    <p class = 'vip-f-title'>观看精彩</p>
+			</div>
+			<div class="aui-col-xs-4 icon-4-box "   onclick="openBrowser('http://tvip.fhpt456.com','PT视频',0)">
+				<!-- onclick="openwin('huodong/frame_yqhy','邀请',0)" -->
+			    <img class = 'icon-3-img' src="../image/shipin.png"/>
+			    <p class = 'vip-p-title'>PT视频</p>
+			    <p class = 'vip-f-title'>精彩无限</p>
+			</div>
+
+        </div>
+     </div>
+
+        <!-- 隔层 -->
+        <div style = 'background-color: #F6F6F7;height:10px;'></div>
+        <!-- 我的工具 -->
+        <div style = 'background-color: #F6F6F7;'>
+              <div class = "vip-auth-box" style = 'margin-top: 0px;height: 185px; '>
+                 <p class = 'class-p-title'>我的工具</p>
+                 <p class = 'class-p-title_line'></p>
+                 <div class="aui-row aui-row-padded">
+                    <!-- <div class="aui-col-xs-3 icon-4-box" id="el_div5">
+                        <img class = 'icon-4-img' src="../image/user/yindao.png"/>
+                        <p class = 's-p-title'>新手指引</p>
+                    </div> -->
+                    <div class="aui-col-xs-3 icon-4-box" onclick = 'openwin("shoucangwin");'>
+                        <img class = 'icon-4-img' src="../image/user/shouc.png"/>
+                        <p class = 's-p-title'>我的收藏</p>
+                    </div>
+                   <!-- <div class="aui-col-xs-3 icon-4-box" onclick = 'openwin("helpwin");'>
+                        <img class = 'icon-4-img' src="../image/user/wenti.png"/>
+                        <p class = 's-p-title'>常见问题</p>
+                    </div> -->
+                     <div class="aui-col-xs-3 icon-4-box"  onclick='openBrowser("https://wulianjiuzhou.com/app/index.php?i=297&c=entry&eid=438","在线客服")'>
+						 <!-- id="kefu" -->
+						 <!-- onclick="openwin('user/frame_kefu','客服',0)" -->
+                        <img class = 'icon-4-img' src="../image/user/kefu.png" />
+                        <p class = 's-p-title'>在线客服</p>
+                    </div>
+                  <!-- <div class="aui-col-xs-3 icon-4-box" onclick='openwin("./tourDIY/tourDIY.html");'>
+                        <img class = 'icon-4-img' src="../image/user/gomngg.png"/>
+                        <p class = 's-p-title'>公告中心</p>
+                    </div> -->
+
+                    <div class="aui-col-xs-3 icon-4-box" onclick = 'openwin("user/frame_fankui");'>
+                        <img class = 'icon-4-img' src="../image/user/yijian.png"/>
+                        <p class = 's-p-title'>意见反馈</p>
+                    </div>
+                     <div class="aui-col-xs-3 icon-4-box" onclick="shezhi()">
+                        <img class = 'icon-4-img' src="../image/user/wmen.png"/>
+                        <p class = 's-p-title'>设置中心</p>
+                    </div>
+
+          					<div class="aui-col-xs-3 icon-4-box "  onclick="alert('暂未开放，敬请期待~')">
+          					    <img class = 'icon-4-img' src="../image/paihangb.png"/>
+          					    <p class = 's-p-title'>排行榜</p>
+          					</div>
+          					<div class="aui-col-xs-3 icon-4-box " onclick="alert('暂未开放，敬请期待~')" >
+          					    <img class = 'icon-4-img' src="../image/paiming.png"/>
+          					    <p class = 's-p-title'>分享达人</p>
+          					</div>
+                    <div class="aui-col-xs-3 icon-4-box" style="display:none" id="applyHead" onclick="applyHead()">
+                        <img class = 'icon-4-img' src="../image/user/yindao.png"/>
+                        <p class = 's-p-title'>申请团长</p>
+                    </div>
+                    <div class="aui-col-xs-3 icon-4-box" style="display:none" id="undoHead" onclick="undoHead()">
+                        <img class = 'icon-4-img' src="../image/user/yindao.png"/>
+                        <p class = 's-p-title'>撤销团长</p>
+                    </div>
+                </div>
+             </div>
+        </div>
+
+
+
+</body>
+</html>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../plugins/swiper/swiper.min.js"></script>
+<script type="text/javascript" src="../script/jquery.min.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/usermgr.js"></script>
+<script type="text/javascript" src="../script/frame4.js"></script>
+<script type="text/javascript">
+
+function updateInfo(){
+  $api.text($api.dom('.user_level'), usermgr.get_userinfo().user_level);
+  $api.text($api.dom('.nickname-span'), usermgr.get_username());
+  $api.text($api.dom('.code-span'), usermgr.get_userinfo().yqcode);
+   $api.text($api.dom('#yuee'), usermgr.get_umoney());
+  $api.text($api.dom('#now-title-p_4'), usermgr.get_score());
+
+  $api.text($api.dom('#quanyibi'), usermgr.get_userinfo().equity_account);
+  $api.text($api.dom('#now-title-p_5'), usermgr.get_userinfo().pt_account);
+  $api.text($api.dom('#dyuee'), usermgr.get_userinfo().frozen_account);
+  if(usermgr.get_userinfo().user_level_id != 3){
+    document.getElementById("applyHead").style.display="block";
+    document.getElementById("undoHead").style.display="none";
+  }
+  if(usermgr.get_userinfo().user_level_id == 3){
+    document.getElementById("applyHead").style.display="none";
+    document.getElementById("undoHead").style.display="block";
+  }
+
+  if(usermgr.get_userinfo().avatarurl != '')
+    $api.attr($api.dom('.head-main-img'),'src',usermgr.get_userinfo().avatarurl);
+   else{
+      $api.attr($api.dom('.head-main-img'),'src',"../image/thum.png");
+   }
+   //会员等级
+    if(usermgr.get_userinfo().ulevel== 0){
+         $api.attr($api.dom('.user-sign'),'src','../image/user/level1.png');
+    }
+    else if(usermgr.get_userinfo().ulevel== 1){
+       $api.attr($api.dom('.user-sign'),'src','../image/user/level1.png');
+    }
+    else if(usermgr.get_userinfo().ulevel== 2){
+       $api.attr($api.dom('.user-sign'),'src','../image/user/level2.png');
+    }
+    //获取统计基本数据
+    pageMol.get_base_order();
+}
+
+
+apiready = function () {
+	console.log(JSON.stringify(usermgr.get_userinfo()))
+	$api.text($api.dom('#now-title-p_5'), usermgr.get_userinfo().pt_account);
+	if(usermgr.get_userinfo().frozen_account){
+		$api.text($api.dom('#dyuee'), usermgr.get_userinfo().frozen_account);
+	}
+	$api.text($api.dom('.levelUser'), usermgr.get_userinfo().user_level);
+	$api.text($api.dom('#quanyibi'), usermgr.get_userinfo().equity_account);
+	$api.addEvt($api.dom('#kefu'), 'click', function(){
+		if(api.systemType == 'android'){
+		        //Android中的使用方法如下：
+		        api.openApp({
+		            androidPkg: 'android.intent.action.VIEW',
+		            mimeType: 'text/html',
+		            uri: 'https://wulianjiuzhou.com/app/index.php?i=297&c=entry&eid=438'
+		        }, function(ret, err) {});
+		    }else{
+		        //iOS中的使用方法如下：
+		        api.openApp({
+		            iosUrl: 'https://wulianjiuzhou.com/app/index.php?i=297&c=entry&eid=438'
+		        });
+		    }
+		// window.location.href = "https://wulianjiuzhou.com/app/index.php?i=297&c=entry&eid=438"
+	});
+	function alertW(){
+		alert('暂未开放，敬请期待~')
+	}
+	api.addEventListener({
+		name: 'recganges'
+	}, function(ret, err) {
+		console.log(JSON.stringify(ret))
+		updateInfo();
+		userInfo()
+	});
+
+    if(istest()){
+       $api.css($api.dom("#el_div1"),"display:none");
+       $api.css($api.dom("#el_div2"),"display:none");
+       $api.css($api.dom("#el_div3"),"display:none");
+       $api.css($api.dom("#el_div4"),"display:none");
+       $api.css($api.dom("#el_div5"),"display:none");
+       $api.text($api.dom(".code-box"),"已为你购物节省: 0 元");
+       $api.css($api.dom(".main-head"),"height: 150px;");
+    }
+
+    //判断用户是否登录
+    if(usermgr.checkLogin()){
+        updateInfo();
+		// userInfo()
+    }
+    // userInfo()
+    $api.addEvt($api.dom('.set-img'), 'click', function(){
+          //打开设置界面
+        shezhi()
+    });
+
+    $api.addEvt($api.dom('.copy-span'), 'click', function(){
+          //复制
+          CopyData(usermgr.get_userinfo().yqcode);
+    });
+
+
+
+    //消息事件；更新用户基本信息
+    api.addEventListener({
+        name: 'base_userdata_event'
+    }, function(ret, err) {
+         updateInfo();
+    });
+
+
+    api.setRefreshHeaderInfo({
+        visible: true,
+        loadingImg: 'widget://image/refresh.png',
+        bgColor: '#fff',
+        textColor: '#ccc',
+        textDown: '下拉刷新...',
+        textUp: '松开试试...',
+        showTime: true
+    }, function(ret, err) {
+		console.log(JSON.stringify(ret))
+		updateInfo();
+		userInfo();
+		setTimeout(()=>{
+			api.refreshHeaderLoadDone();
+		},1000)
+
+    });
+
+
+
+}
+function jiayou(){
+  openBrowser('http://pro.fuhuipt.com/api/user/jiayou?token='+usermgr.get_usertoken(),'加油特惠',0);
+}
+//申请团长
+function applyHead() {
+  var parms = {
+      url:"user/applyHead",
+      values:{
+       token:usermgr.get_usertoken(),
+      },
+      callback:function(ret){
+          api.toast({
+             msg : ret.msg,
+             duration : 3000,
+             location : 'bottom'
+         });
+      }
+  }
+  JM_POST(parms);
+}
+
+//撤销团长
+function undoHead() {
+  var parms = {
+      url:"user/undoHead",
+      values:{
+       token:usermgr.get_usertoken(),
+      },
+      callback:function(ret){
+          if(ret.msg == 'success'){
+            api.toast({
+               msg : '撤销成功',
+               duration : 3000,
+               location : 'bottom'
+           });
+           usermgr.set_userinfo(ret.data);
+           api.sendEvent({
+             name: 'recganges'
+           });
+         }else{
+           api.toast({
+              msg : ret.msg,
+              duration : 3000,
+              location : 'bottom'
+          });
+         }
+      }
+  }
+  JM_POST(parms);
+}
+
+//获取用户信息
+function userInfo(){
+	var parms = {
+	    url:"user/index/detail",
+	    values:{
+		   token:usermgr.get_usertoken(),
+	    },
+	    callback:function(ret){
+			console.log(JSON.stringify(ret))
+			$api.attr($api.dom('head-main-img'),'src',ret.data.avatarurl);
+			$api.text($api.dom('.nickname-span'), ret.data.nickname);
+			$api.text($api.dom('#now-title-p_5'), ret.data.pt_account);
+			$api.text($api.dom('#dyuee'), ret.data.frozen_account);
+			$api.text($api.dom('#yuee'), ret.data.umoney);
+			$api.text($api.dom('#quanyibi'), ret.data.equity_account);
+			$api.text($api.dom('.levelUser'), usermgr.get_userinfo().user_level);
+	    }
+	}
+	JM_POST(parms);
+}
+
+function shezhi(){
+  var parms = {
+    name:'frame_setting',
+    url: './user/frame_seting.html'
+  }
+  openFram(parms);
+}
+
+function openuserwin(winname){
+	api.openWin({
+	    name: winname,
+	    url: './user/'+winname,
+	});
+}
+
+function openyq(){
+  api.openWin({
+	    name: "frame_yaoqing",
+	    url: 'widget://html/inviteframe.html',
+	});
+}
+
+</script>

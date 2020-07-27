@@ -1,0 +1,92 @@
+.tourDIY{
+	width: 100vw;
+	background: #252424;
+	height: 100vh;
+	overflow: auto;
+}
+.tourDIYTop{
+	width: 100%;
+	height:17vw;
+	padding-top: 30px;
+	background: #252424;
+	color: #fff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-bottom: 1px solid #eee;
+}
+.tourTitle{
+	width: 100%;
+	padding: 5vw 8%;
+	background: #252424;
+	color: #fff;
+	text-align: center;
+}
+.tourTitle>div:nth-child(1){
+	font-size: 20px;
+	
+}
+.tourTitle>div:nth-child(2){
+	font-size: 14px;
+	margin: 2vw 0;
+}
+.tourTitle>div:nth-child(3){
+	font-size: 14px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0 12%;
+}
+.tourTitle>div:nth-child(3) div{
+	width: 25vw;
+	height: 9vw;
+	border-radius: 30px;
+	border: 1px solid #F0B109;
+	color: #F0B109;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.tradeTop{
+	width: 94%;
+	padding: 0 3%;
+	height: 10vw;
+	border-radius: 5px;
+	margin: 2vw auto;
+	background: #464646;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	color: #fff;
+	font-size: 12px;
+}
+.tradeTop div{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.tradeContent{
+	width: 94%;
+	background:#464646;
+	border-radius: 5px;
+	margin: 3vw auto;
+	display: flex;
+	align-items: flex-start;
+}
+.tradeContent>div{
+	width: 50%;
+}
+.tradeListS,.tradeRight{
+	width: 100%;
+	padding: 3vw 3%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	font-size: 13px;
+	color: #fff;
+	border-bottom: 1px solid #eee;
+	margin: 0 auto;
+}
+.price{
+	color: #F09619;
+}

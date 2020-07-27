@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>确认订单</title>
+		<link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+		<link rel="stylesheet" type="text/css" href="../../plugins/swiper/swiper.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/aui.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/fans.css"/>
+	</head>
+	<style type="text/css">
+		.tourDIY{
+			background: #fff;
+		}
+		.AddressS{
+			width: 100%;
+			padding: 3vw 5%;
+			position: relative;
+			border-top: 1px solid #eee;
+		}
+		.AddressS>div{
+			width: 100%;
+			display: flex;
+			align-items: center;
+			margin-top: 4vw;
+			font-size: 14px;
+			color: #666;
+		}
+		.AddressS>div:nth-child(2){
+			justify-content: space-between;
+		}
+		.AddressS>div img{
+			width: 5vw;
+			margin-right: 3vw;
+		}
+		.AddressS>div .right{
+			width: 2.5vw;
+		}
+		.addressText{
+			width: 73vw;
+		}
+		.addressBottom{
+			width: 100%;
+			position: absolute;
+			bottom: 0;
+			left: 0;
+		}
+		.orderShop{
+			width: 100%;
+			padding: 3vw 5%;
+			border-top: 2vw solid #eee;
+			border-bottom: 2vw solid #eee;
+			font-size-adjust: 15px;
+		}
+		.orderDetail{
+			display: flex;
+			align-items: center;
+			margin-top: 2vw;
+		}
+		.orderDetail>img{
+			width: 18vw;
+			height: 18vw;
+			border: 1px solid #eee;
+			border-radius: 3px;
+			margin-right: 3vw;
+		}
+		.orserText>div:nth-child(1){
+			font-size: 15px;
+		}
+		.orserText>div:nth-child(2){
+			font-size: 16px;
+			margin-top: 1vw;
+			color: #F0455C;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+		.number{
+			display: flex;
+			align-items: center;
+
+		}
+		.number>div:nth-child(1){
+			border-left: 1px solid #eee;
+		}
+		.number>div:nth-child(1),.number>div:nth-child(3){
+			width: 8vw;
+			height: 8vw;
+			border-top: 1px solid #eee;
+			border-bottom: 1px solid #eee;
+			font-size: 23px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: #999;
+			border-right: 1px solid #eee;
+		}
+		.number>div:nth-child(2){
+			width: 12vw;
+			height: 8vw;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			border-top: 1px solid #eee;
+			border-bottom: 1px solid #eee;
+			border-right: 1px solid #eee;
+		}
+		.number>div:nth-child(2) input{
+			text-align: center;
+		}
+		.payMent{
+			width: 100%;
+			padding: 3vw 5%;
+			font-size: 15px;
+		}
+		.payMentWx{
+			width: 100%;
+			height: 12vw;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+		.payMentWx div{
+			display: flex;
+			align-items: center;
+		}
+		.payMentWx img{
+			width: 6vw;
+			margin-right: 3vw;
+		}
+		.choose{
+			width:6vw;
+			height:6vw;
+			border: 1px solid #eee;
+			border-radius: 50%;
+		}
+		.bottomPay{
+			width: 100%;
+			display: flex;
+			align-items: center;
+			height: 12vw;
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			z-index: 0;
+			box-shadow: 1px 1px 10px #eee;
+		}
+		.bottomPay>div:nth-child(1){
+			font-size: 14px;
+			width: 50%;
+			padding-left: 6%;
+		}
+		.bottomPay>div:nth-child(1) span{
+			font-size: 18px;
+			color: #F0455C;
+		}
+		.bottomPay>div:nth-child(2){
+			font-size: 14px;
+			width: 50%;
+			height: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: #fff;
+			background: #F0455C;
+		}
+	</style>
+	<body>
+		<div class="tourDIY box-warp" id="tourDIY" v-cloak>
+			<div class = 'normal-head-box' id = 'header'>
+			     <div class = 'padding-t-10' style="z-index: 10000;" >
+			        <img src="../../image/back.png" class = 'normal-bk-img' @click="back">
+
+			        <p class = 'normal-head-title'>确认订单</p>
+			     </div>
+			</div>
+			<div style="width: 100px;height: 22vw;">
+
+			</div>
+			<div class="AddressS" v-for="(item,i) in adressList" :key="i" v-if="item.address_id==defultId" @click="chooseAddress">
+				<div>
+					<img style="margin-right: 5vw;" src="../../image/rename7.png" >
+					{{item.name}}   {{item.phone}}
+				</div>
+				<div>
+					<img style="opacity: 0;" src="../../image/rename7.png" >
+					<div class="addressText">
+						{{item.region.province}}{{item.region.city}}{{item.region.region}}{{item.detail}}
+					</div>
+					<img class="right" src="../../image/rename1.png" >
+				</div>
+				<img class="addressBottom" src="../../image/rename8.png" >
+			</div>
+			<div class="" style="width: 90%;padding: 3vw 5%;height: 10vw;border-bottom: 1px solid #eee;" @click="newAddress"  v-if="adressList==''">
+				新建地址
+			</div>
+			<div class="orderShop">
+				<div>订单商品</div>
+				<div class="orderDetail">
+					<img :src="data.carousel[0].img" >
+					<div class="orserText">
+						<div>{{data.title}}</div>
+						<div>
+							<div><b>￥{{money}}</b></div>
+							<!-- <div class="number">
+								<div>-</div>
+								<div>
+									<input type="number" name="" id="" value="1" />
+								</div>
+								<div>+</div>
+							</div> -->
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="payMent">
+				<div>支付方式</div>
+				 <!-- <div class="payMentWx" @click="wxPay(1)">
+					<div>
+						<img src="../../image/rename5.png" >
+						微信支付
+					</div>
+					<div class="choose">
+						<img v-if="payType==1" src="../../image/chose.png" >
+					</div>
+				</div>
+				<div class="payMentWx" @click="wxPay(2)">
+					<div>
+						<img src="../../image/rename6.png" >
+						支付宝支付
+					</div>
+					<div class="choose">
+						<img v-if="payType==2" src="../../image/chose.png" >
+					</div>
+				</div>  -->
+				<div class="payMentWx" @click="wxPay(3)">
+					<div>
+						<img src="../../image/zhifu.png" >
+						余额支付
+					</div>
+					<div class="choose">
+						<img v-if="payType==3" src="../../image/chose.png" >
+					</div>
+				</div>
+			</div>
+			<div class="bottomPay">
+				<div>应付款：<span>￥{{money}}</span></div>
+				<div @click="payNow" id="lijizhifu">立即支付</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../plugins/swiper/swiper.min.js"></script>
+<script type="text/javascript" src="../../script/vue/vue.js"></script>
+<script type="text/javascript" src="../../script/usermgr.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+		$api.fixStatusBar( $api.dom('#header') );
+
+	    var tour = new Vue({
+	        el: '#tourDIY',
+	        data: function () {
+	            return {
+					is_create: api.pageParam.is_create,
+					address: api.pageParam.address,
+					active_id:api.pageParam.active_id,
+					money:api.pageParam.money,
+					payType:3,
+					defultId:'',
+					adressList:[],
+					data:'',
+					is_pay:0,
+				}
+	        },
+			created() {
+				this.init()
+			},
+			mounted() {
+				let that = this
+				var tourSwiper = new Swiper('.swiper-container',{
+					autoplay:true,
+				});
+				api.addEventListener({
+					name: 'address'
+				}, function(ret, err) {
+					console.log(JSON.stringify(ret))
+					that.defultId = ret.value.key
+				});
+				api.addEventListener({
+					name: 'modifyaddress'
+				}, function(ret, err) {
+					console.log(JSON.stringify(ret))
+					that.init()
+				});
+
+			},
+	        methods:{
+				newAddress(){
+					api.openWin({
+					    name: 'modifyaddress',
+					    url: './modifyAddress.html'
+					});
+				},
+				init(){
+					let that = this
+					var parms = {
+					    url:"Address/lists",
+					    values:{
+						   token:usermgr.get_usertoken()
+					    },
+					    callback:function(ret){
+							console.log(JSON.stringify(ret))
+							that.adressList = ret.data.list
+							that.defultId = ret.data.default_id
+					    }
+					}
+					JM_POST(parms);
+					var parms = {
+						url: "pintuan/get_active_detail",
+						values: {
+							active_id: that.active_id
+						},
+						callback: function(ret) {
+							console.log(JSON.stringify(ret))
+							that.data = ret.data
+						}
+					}
+					JM_POST(parms);
+				},
+				back(){
+					api.closeWin();
+				},
+				chooseAddress(){
+					api.openWin({
+					    name: 'chooseaddress',
+					    url: './chooseAddress.html',
+						pageParam: {
+							id: 1,
+						}
+					});
+				},
+				payNow(){
+					let that = this
+					if(that.is_pay == 0){
+						that.is_pay=1;
+						var wxPayPlus = api.require('wxPayPlus');
+						var aliPayPlus = api.require('aliPayPlus');
+						// var wxPay = api.require('wxPay');
+						if(api.pageParam.jixuPay==1){
+							var parms = {
+							    url:"pintuan/rebuild_pay",
+							    values:{
+							       order_sn:this.group_sn,
+							       pay_type:this.payType,
+								   token:usermgr.get_usertoken()
+							    },
+							    callback:function(ret){
+									// alert(JSON.stringify(ret.data))
+									console.log(JSON.stringify(ret))
+									if(ret.data!=''){
+										if(that.payType==2){
+											aliPayPlus.payOrder({
+											    orderInfo: ret.data.toString()
+											}, function(ret, err) {
+											    // api.alert({
+											    //     title: '支付结果',
+											    //     msg: ret.code,
+											    //     buttons: ['确定']
+											    // });
+												if(ret){
+													alert('支付成功');
+													api.openWin({
+														name: 'main',
+														url: 'widget://html/main.html',
+														bounces: false,
+														vScrollBarEnabled: false,
+														hScrollBarEnabled: false,
+														slidBackEnabled: false
+													});
+												}
+											});
+										}else if(that.payType==1){
+											wxPayPlus.payOrder({
+											    apiKey: ret.data.appid.toString(),
+											    orderId: ret.data.prepayid.toString(),
+											    mchId: ret.data.partnerid.toString(),
+											    nonceStr: ret.data.noncestr.toString(),
+											    timeStamp: ret.data.timestamp.toString(),
+											    package: "Sign=WXPay",
+											    sign: ret.data.sign.toString()
+											}, function(ret, err) {
+											    if (ret.status) {
+											        //支付成功
+															alert('支付成功');
+															api.openWin({
+																name: 'main',
+																url: 'widget://html/main.html',
+																bounces: false,
+																vScrollBarEnabled: false,
+																hScrollBarEnabled: false,
+																slidBackEnabled: false
+															});
+											    } else {
+											        // alert(err.code);
+											    }
+											});
+
+
+										}else{
+											alert('支付成功');
+											api.openWin({
+												name: 'main',
+												url: 'widget://html/main.html',
+												bounces: false,
+												vScrollBarEnabled: false,
+												hScrollBarEnabled: false,
+												slidBackEnabled: false
+											});
+										}
+									}else{
+										alert(ret.msg)
+									}
+							    }
+							}
+							JM_POST(parms);
+						}else{
+							var parms = {
+							    url:"pintuan/create_active_order",
+							    values:{
+								   token:usermgr.get_usertoken(),
+							       active_id:this.active_id,
+							       address_id:this.address?this.address:'',
+							       is_create:this.is_create,
+							       pay_type:this.payType
+							    },
+							    callback:function(ret){
+									// alert(JSON.stringify(ret.data))
+									console.log(JSON.stringify(ret))
+									if(ret.data!=''){
+										if(that.payType==2){
+											aliPayPlus.payOrder({
+											    orderInfo: ret.data.toString()
+											}, function(ret, err) {
+											    // api.alert({
+											    //     title: '支付结果',
+											    //     msg: ret.code,
+											    //     buttons: ['确定']
+											    // });
+												if(ret){
+													alert('支付成功');
+													api.openWin({
+														name: 'main',
+														url: 'widget://html/main.html',
+														bounces: false,
+														vScrollBarEnabled: false,
+														hScrollBarEnabled: false,
+														slidBackEnabled: false
+													});
+												}
+											});
+										}else if(that.payType==1){
+											wxPayPlus.payOrder({
+											    apiKey: ret.data.appid.toString(),
+											    orderId: ret.data.prepayid.toString(),
+											    mchId: ret.data.partnerid.toString(),
+											    nonceStr: ret.data.noncestr.toString(),
+											    timeStamp: ret.data.timestamp.toString(),
+											    package: "Sign=WXPay",
+											    sign: ret.data.sign.toString()
+											}, function(ret, err) {
+											    if (ret.status) {
+														alert('支付成功');
+														api.openWin({
+															name: 'main',
+															url: 'widget://html/main.html',
+															bounces: false,
+															vScrollBarEnabled: false,
+															hScrollBarEnabled: false,
+															slidBackEnabled: false
+														});
+											    } else {
+											        // alert(err.code);
+											    }
+											});
+
+
+										}else{
+											alert('支付成功');
+											api.openWin({
+												name: 'main',
+												url: 'widget://html/main.html',
+												bounces: false,
+												vScrollBarEnabled: false,
+												hScrollBarEnabled: false,
+												slidBackEnabled: false
+											});
+										}
+									}else{
+										alert(ret.msg)
+										if(ret.msg=="请勿重复预约参团"){
+											api.openWin({
+												name: 'tourOrder',
+												url: './tourOrder.html',
+
+											});
+										}
+									}
+							    }
+							}
+							JM_POST(parms);
+						}
+					}
+				},
+				wxPay(e){
+					this.payType = e
+				}
+	    	}
+	    })
+		 //下拉刷新
+      api.setRefreshHeaderInfo({
+          visible: true,
+          loadingImg: 'widget://image/refresh.png',
+          bgColor: '#fff',
+          textColor: '#ccc',
+          textDown: '下拉刷新...',
+          textUp: '松开试试...',
+          showTime: true
+      }, function(ret, err) {
+        setTimeout(()=>{
+          api.refreshHeaderLoadDone();
+        },1000)
+
+      });
+     //下拉刷新
+	};
+
+</script>

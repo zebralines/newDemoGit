@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>确认订单</title>
+		<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../../plugins/swiper/swiper.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/aui.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/common.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/fans.css" />
+	</head>
+	<style type="text/css">
+		.tourDIY {
+			background: #fff;
+		}
+
+		.navTab {
+			width: 100%;
+			height: 10vw;
+			border-top: 1px solid #eee;
+			padding: 0 10%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: #666;
+		}
+
+		.navTab div {
+			width: 33%;
+			height: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 14px;
+		}
+
+		.activeTab {
+			color: #F0455C;
+			position: relative;
+		}
+
+		.activeTab:after {
+			width: 12vw;
+			height: 2px;
+			background: #F0455C;
+			position: absolute;
+			top: 9vw;
+			left: 4vw;
+			content: '';
+		}
+
+		.navContent {
+			width: 100%;
+			padding: 2vw 4%;
+		}
+
+		.ContentList,
+		.ContentList2 {
+			width: 100%;
+			padding: 3vw 0;
+			border-bottom: 1px solid #eee;
+			display: flex;
+			align-items: center;
+		}
+
+		.ContentList img {
+			width: 25vw;
+			height: 25vw;
+			margin-right: 3vw;
+			color: #333;
+			border-radius: 3px;
+		}
+
+		.tourText,
+		.tourText2 {
+			font-size: 15px;
+			width: 70%;
+		}
+
+		.tourText>div:nth-child(1),
+		.tourText2>div:nth-child(1) {
+			font-size: 17px;
+		}
+
+		.tourText>div:nth-child(2) {
+			font-size: 16px;
+			color: #F0455C;
+			margin: 2vw 0;
+		}
+
+		.tourText>div:nth-child(3),.tourText>div:nth-child(4) {
+			font-size: 14px;
+			color: #999;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+
+		.WonderType {
+			width: 15vw;
+			height: 7vw;
+			border-radius: 3px;
+			color: #fff;
+			font-size: 13px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: #F0455C;
+		}
+
+		.ContentList2 img {
+			width: 33vw;
+			height: 25vw;
+			border-radius: 3px;
+			margin-right: 3vw;
+		}
+
+		.tourText2>div:nth-child(2) {
+			margin: 2vw 0;
+			font-size: 16px;
+			color: #666;
+		}
+
+		.tourText2>div:nth-child(3){
+			margin: 2vw 0;
+			font-size: 15px;
+			color: #999;
+		}
+		.tourText2 .tourBottom4{
+			margin: 2vw 0;
+			font-size: 15px;
+			color: #999;
+		}
+		.succOrder {
+			width: 100%;
+			padding: 2vw 5%;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			font-size: 15px;
+			color: #666;
+		}
+
+		.wonderBtn {
+			width: 100%;
+			display: flex;
+			align-items: center;
+			height: 12vw;
+			justify-content: flex-end;
+
+		}
+
+		.wonderBtn>div {
+			width: 30vw;
+			height: 9vw;
+			border-radius: 30px;
+			color: #fff;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: #F0455C;
+			font-size: 14px;
+		}
+	</style>
+	<body>
+		<div class="tourDIY box-warp" id="tourDIY" v-cloak>
+			<div class='normal-head-box' id='header'>
+				<div class='padding-t-10'>
+					<img src="../../image/back.png" class='normal-bk-img'>
+
+					<p class='normal-head-title'>拼团订单</p>
+				</div>
+			</div>
+			<div style="width: 100px;height: 18vw;">
+
+			</div>
+			<div class="navTab">
+				<div :class="navTb===''?'activeTab':''" @click="navTap('')">全部</div>
+				<div :class="navTb===0?'activeTab':''" @click="navTap(0)">未开团</div>
+				<div :class="navTb==1?'activeTab':''" @click="navTap(1)">已拼中</div>
+				<div :class="navTb==2?'activeTab':''" @click="navTap(2)">未拼中</div>
+			</div>
+			<div class="navContent">
+				<div class="">
+					<div class="ContentList" v-for="(item,i) in orderData" :key="i" @click="tourOrderDetail(item.id,item.is_reward)">
+						<img :src="item.goods.thumb">
+						<div class="tourText">
+							<div>{{item.goods.title}}</div>
+							<div>￥{{item.price}}</div>
+							<div >
+								<div style="color: #F0280F;" @click.stop="goPayMoney(item)">{{item.order_status}} <span v-if="item.order_status=='待付款'">去付款</span></div>
+								<div @click.stop="delOrder(item.order_sn)" v-if="item.order_status=='待付款'">取消订单</div>
+							</div>
+							<div style="width: 68vw;">订单号:{{item.order_sn}}</div>
+							<div class="tourBottom4" style="float:right">
+								<div class="WonderType" v-if="item.order_status!='待付款'" :style="{'background':item.is_reward=='未开奖'?'#2e94de':'#F0455C'}">{{item.is_reward}}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../plugins/swiper/swiper.min.js"></script>
+<script type="text/javascript" src="../../script/vue/vue.js"></script>
+<script type="text/javascript" src="../../script/jquery.min.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript" src="../../script/usermgr.js"></script>
+<script type="text/javascript" src="../../script/user/fensi.js"></script>
+<script type="text/javascript">
+	apiready = function() {
+		$api.fixStatusBar($api.dom('#header'));
+		$api.fixStatusBar($api.dom('.head_classify'));
+
+		// $('.normal-bk-img').click(() => {
+		// 	console.log(11111111)
+		// })
+		var tour = new Vue({
+			el: '#tourDIY',
+			data: function() {
+				return {
+					navTb: '',
+					dateType: '',
+					orderData: [],
+					pages: 1
+				}
+			},
+			created() {
+				this.wonder()
+			},
+			mounted() {
+				var tourSwiper = new Swiper('.swiper-container', {
+					autoplay: true,
+				});
+				$api.addEvt($api.dom('.normal-bk-img'), 'click', function(){
+					console.log(111111111)
+					api.closeWin();
+				});
+			},
+			methods: {
+				goPayMoney(item){
+					if(item.order_status=='待付款'){
+						api.openWin({
+							name: 'sureOrder',
+							url: './sureOrder.html',
+							pageParam: {
+								active_id: item.active_id,
+								is_create: item.is_caption=='开团'?1:2,
+								address: item.user.address_id,
+								group_sn:item.order_sn,
+								money:item.price,
+								jixuPay:1
+							}
+						});
+					}
+
+				},
+				delOrder(orderSn){
+					let that = this
+					api.confirm({
+					    title: '提示',
+					    msg: '确定取消订单吗？',
+					    buttons: ['确定', '取消']
+					}, function(ret, err) {
+					    var index = ret.buttonIndex;
+						if(index==1){
+							var parms = {
+								url: "pintuan/cancel_order",
+								values: {
+									'token': usermgr.get_usertoken(),
+									'order_sn': orderSn,
+								},
+								callback: function(ret) {
+									if(ret.ret.msg=='success'){
+										alert(ret.ret.data)
+										that.wonder()
+									}
+								}
+							}
+							JM_POST(parms);
+						}
+					});
+
+				},
+				wonder() {
+					let that = this
+					var parms = {
+						url: "GroupOrder/lists",
+						values: {
+							token: usermgr.get_usertoken(),
+							dataType: this.dateType,
+							page: this.pages
+						},
+						callback: function(ret) {
+							console.log(JSON.stringify(ret))
+							that.orderData = ret.data.list.data
+						}
+					}
+					JM_POST(parms);
+				},
+				navTap(e) {
+					this.navTb = e
+					this.dateType = e
+					this.wonder()
+				},
+				tourOrderDetail(id,status) {
+					api.openWin({
+						name: 'tourdetail',
+						url: './wonderZ.html',
+						pageParam: {
+							id: id,
+							status:status
+						}
+					});
+				}
+			}
+		})
+		   //下拉刷新
+      api.setRefreshHeaderInfo({
+          visible: true,
+          loadingImg: 'widget://image/refresh.png',
+          bgColor: '#fff',
+          textColor: '#ccc',
+          textDown: '下拉刷新...',
+          textUp: '松开试试...',
+          showTime: true
+      }, function(ret, err) {
+				tour.wonder()
+        setTimeout(()=>{
+          api.refreshHeaderLoadDone();
+        },1000)
+
+      });
+     //下拉刷新
+	};
+</script>

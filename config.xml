@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget id="A6039877136002"  version="0.0.1">
+  <name>芙惠</name>
+    <!-- <description>
+        芙惠淘宝客三合一返利APP
+    </description>
+    <author email="978839585@QQ.com" href="http://www.52juanmi.com">
+        漫步开发者 QQ：978839585
+    </author> -->
+  <content src="index.html" />
+	<preference name="appBackground" value="rgba(0,0,0,0)"/>
+	<preference name="windowBackground" value="rgba(0,0,0,0)"/>
+	<preference name="frameBackgroundColor" value="rgba(0,0,0,0)"/>
+	<preference name="autoLaunch" value="true"/>
+	<preference name="autoUpdate" value="true"/>
+	<preference name="smartUpdate" value="true"/>
+	<preference name="debug" value="false"/>
+	<preference name="statusBarAppearance" value="true"/>
+	<permission name="location"/>
+	<permission name="internet"/>
+	<access origin="*"/>
+  <feature name="push"/>
+  <!-- 配置aliBC模块-->
+<!-- <preference name="querySchemes" value="tbopen,tmall"/>
+<feature name="aliBC">
+  <param name="urlScheme" value="tbopen25339544"/>
+</feature> -->
+<feature name="TalkingData">
+        <param name="logEnable" value="true" />
+        <param name="exceptionReportEnabled" value="true" />
+        <!-- 渠道名称 -->
+        <param name="channel" value="android" />
+</feature>
+
+<feature name="alibaichuan">
+    <param name="urlScheme" value="tbopen28641911"/>
+</feature>
+<preference name="querySchemes" value="tmall,tbopen" />
+
+<!-- 微信支付 -->
+	<feature name="wxPayPlus">
+		<param name="urlScheme" value="wxd7dadc838a393573"/>
+		<param name="apiKey" value="wxd7dadc838a393573"/>
+		<param name="apiSecret" value="qwedsa87rtgf58yhbg47erfv56gtu9yu"/>
+  </feature>
+
+  <!-- 支付支付宝 -->
+   <feature name="aliPayPlus">
+     <param name="urlScheme" value="AliPayPlus2019040363757338"/>
+   </feature>
+
+<!-- 微信登录模块配置 -->
+<!-- <feature name="wx">
+   <param name="urlScheme" value="wxd7dadc838a393573"/>
+   <param name="apiKey" value="wxd7dadc838a393573"/>
+   <param name="apiSecret" value="qwedsa87rtgf58yhbg47erfv56gtu9yu"/>
+</feature> -->
+<feature name="wxPlus">
+    <param name="urlScheme" value="wxd7dadc838a393573"/>
+    <param name="apiKey" value="wxd7dadc838a393573"/>
+    <param name="apiSecret" value="qwedsa87rtgf58yhbg47erfv56gtu9yu"/>
+    <param name="universalLink" value="https://com.hai6.wdrj/"/>
+  </feature>
+<!--Q模块-->
+<feature name="QQPlus">
+   <param name="urlScheme" value="tencent1108025456" />
+   <param name="apiKey" value="1108025456" />
+</feature>
+
+ <preference name="userAgent" value="juanmi" />
+<preference name="forbiddenSchemes" value="*" />
+
+<!--腾讯个推 -->
+<feature name="tencentPush">
+        <param name="android_accessId" value="2100338115" />
+        <param name="android_accessKey" value="AUJ95982UGSZ" />
+</feature>
+<!--腾讯个推 IOS-->
+<feature name="tencentPush">
+        <param name="ios_accessId" value="2200338116" />
+        <param name="ios_accessKey" value="IU4J717UN9SU" />
+</feature>
+</widget>

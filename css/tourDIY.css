@@ -1,0 +1,155 @@
+.tourDIY{
+	width: 100vw;
+	background: #fff;
+}
+.tourDIYTop{
+	width: 100vw;
+	padding: 30px 3vw 3vw 3vw;
+	background: linear-gradient(to right, #e05480 , #ff0071);
+	font-size: 15px;
+	color: #fff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relation;
+}
+.tourDIYTop img{
+	width: 6vw;
+	height: 5vw;
+	position: absolute;
+	top: 9vw;
+	right: 6vw;
+}
+.navTab{
+	width: 100vw;
+	padding: 4vw 2vw;
+	display: flex;
+	align-items: center;
+	/* justify-content: space-between; */
+	font-size: 14px;
+	color: #333;
+
+}
+.navTab>div{
+	padding: 1vw 2vw;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.navTabActive{
+	position: relative;
+}
+.navTabActive:after{
+	width: 100%;
+	height: 2px;
+	background: linear-gradient(to right, #e05480 , #ff0071);
+	content: '';
+	position: absolute;
+	top: 9.5vw;
+	left: 0vw;
+}
+.tourSwiper{
+	width: 100%;
+	padding: 3vw 2%;
+}
+.swiper-container img{
+	width: 100%;
+	height: 50vw;
+}
+.tourShop{
+	width: 100%;
+	padding: 3vw 4%;
+	border-top: 2px solid #eee;
+}
+.tourList{
+	width: 100%;
+	padding: 3vw 0;
+	display: flex;
+	align-items: center;
+	border-bottom: 1px solid #eee;
+}
+.tourList img{
+	width: 32vw;
+	height: 32vw;
+	margin-right: 3vw;
+	border-radius: 5px;
+}
+.tourList>div:nth-child(2){
+	width: 58vw;
+}
+.rightTitle{
+	font-size: 16px;
+	color: #333;
+}
+.rightprice{
+	font-size: 16px;
+	color: #F0455C;
+}
+.rightprice del{
+	color: #999;
+	margin-left: 3vw;
+	font-size: 12px;
+	display: inline-block;
+}
+.tourProgress{
+	width: 100%;
+	height: 1vw;
+	border-radius: 30px;
+	background: #eee;
+	margin: 1vw 0;
+	overflow: hidden;
+}
+.tourProgress>div{
+	width: 60%;
+	height: 100%;
+	background:linear-gradient(to right, #e05480 , #ff0071);
+	border-radius: 30px;
+}
+.tourText{
+	font-size: 13px;
+	color: #999;
+	margin: 1vw 0;
+}
+.tourBtn{
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+
+}
+.tourBtn>div{
+	width: 22vw;
+	height: 8vw;
+	border: 1px solid #e054ae;
+	font-size: 14px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #333;
+}
+.tourBtn>div:nth-child(2){
+	background:linear-gradient(to right, #e05480 , #ff0071);
+	color: #fff;
+	border-radius: 0 3px 3px 0;
+}
+.tourBtn>div:nth-child(1){
+	border-radius:  3px 0 0 3px ;
+}
+.tourTime{
+	font-size: 12px;
+	color: #999;
+	display: flex;
+	align-items: center;
+	margin-bottom: 3vw;
+}
+.tourTime .timeS{
+	width: 6vw;
+	height: 6vw;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #fff;
+	background: linear-gradient(to right, #e05480 , #ff0071);
+	margin:0 3px;
+	border-radius: 5px;
+}

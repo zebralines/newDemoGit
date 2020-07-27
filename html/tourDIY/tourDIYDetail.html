@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>拼团详情</title>
+		<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../../plugins/swiper/swiper.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/yqhy/tourDIYDetail.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/aui.css" />
+	</head>
+	<style type="text/css">
+		.toastCon {
+			width: 100vw;
+			height: 100vh;
+			background: rgba(0, 0, 0, .5);
+			position: fixed;
+			top: 0;
+			left: 0;
+			z-index: 100;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.toastWhite {
+			width: 80%;
+			background: #fff;
+			border-radius: 10px;
+			font-size: 14px;
+			color: #333;
+		}
+
+		.toastText {
+			width: 100%;
+			padding: 2vw 5%;
+		}
+
+		.toastText span {
+			color: #F0455C;
+			display: inline-block;
+			margin: 0 1vw;
+		}
+
+		.toastText>div {
+			margin: 1.5vw 0;
+		}
+
+		.toastBtn {
+			width: 100%;
+			display: flex;
+			align-items: center;
+			border-top: 1px solid #eee;
+			height: 12vw;
+
+		}
+
+		.toastBtn div {
+			font-size: 15px;
+			width: 50%;
+			height: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.toastBtn div:nth-child(2) {
+			border-left: 1px solid #eee;
+			color: #F0455C;
+		}
+
+		.searchCon {
+			width: 100%;
+			padding: 3vw 4%;
+
+		}
+
+		.searchCon input {
+			width: 100%;
+			height: 10vw;
+			padding-left: 3vw;
+			border-radius: 30px;
+			background: #eee;
+			font-size: 14px;
+		}
+	</style>
+	<body>
+		<div class="tourDIY" id="tourDetail" v-cloak>
+			<div class="tourDIYTop">
+			</div>
+			<img src="../../image/left5.png" style="width: 6vw;position: absolute;top: 15vw;left: 5vw;z-index: 1000;" @click="back" class='normal-bk-img'>
+			<div class="tourDIYSwiper">
+				<div class="swiper-container">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide" v-for="(banner,b) in data.carousel" :key="b">
+							<img :src="banner.img">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="tourTitle">
+				<div class="tourTitleText"><b>{{data.title}}</b></div>
+				<div class="tourPrice">
+					<b>￥{{data.price}}</b> <del>市场价：￥{{data.goods_price}}</del>
+				</div>
+				<div class="progress">
+					<div :style="{'width':data.group_order.count==0?'0':(data.group_order.count*100)/data.user_num+'%'}">
+					</div>
+				</div>
+				<!-- <div class="tourHistory">
+					已预约参团<rr style="color:red;font-size:18px">{{data.reservationNumber}}</rr>人
+				</div> -->
+			</div>
+			<div style="width:100%;height:5px;background:#eee"></div>
+      <div style="width:100%;height:40px;line-height:40px;font-size:16px;padding-left:15px;border-bottom:1px solid #eee">开团活动</div>
+			<div class="tourList">
+				<div v-for="(order,o) in data.order" :key="o" style="margin-top: 2vw;border-bottom:1px solid #eee">
+					<div style="padding-bottom:2px">
+						<img :src="order.avatarurl">
+					<tt style="color:#555;font-size:16px">	团长{{o+1}} </tt>
+					<oo style="color:#777;font-size:12px;padding-left:20px">{{order.createtime}}</oo>
+					</div>
+					<div class="tourNow" style="border-radius:15%;background:none;border:0px solid #333;color:#999" >已开团</div>
+				</div>
+			</div>
+			<div style="width:100%;height:5px;background:#eee"></div>
+			<div class="shopTop" style="background:#fff">
+				<div :class="sth==1?'shopActive':''" @click="sthTAP(1)">商品详情</div>
+				<div :class="sth==2?'shopActive':''" @click="sthTAP(2)">商品评价</div>
+			</div>
+			<div class="shopContent">
+				<div v-if="sth==2">
+					<div class="shopLists" v-for="(com,c) in data.comment" :key="c">
+						<div>
+							<div>
+								<img :src="com.avatarurl">
+								{{com.nickname}}
+							</div>
+							<div class="shopListsTime">{{com.createtime}}</div>
+						</div>
+						<div class="shopText">{{com.content}}</div>
+						<div><img :src="com.img"></div>
+					</div>
+
+				</div>
+				<div v-if="sth==1">
+					<div class="shopDetailImg" id="tbody" v-html="data.content">
+
+					</div>
+				</div>
+			</div>
+			<div class="bottomTour" style="width:100%">
+				<div @click="sure(2)" id='yuyuecantuan' style="background:red;border-radius:0px;height:100%;width:50%;margin-right: 10px">预约参团</div>
+				<div @click="sure(1)" style="background:FF6600;border-radius:0px;height:100%;width:50%">团长开团</div>
+			</div>
+			<div class="toastCon" v-if="clickTour">
+				<div class="toastWhite">
+					<div class="toastText">
+						<div>{{tourType==1?'发起拼团':'参与拼团'}}提示</div>
+						<div> 尊敬的<span>{{userNmae}}</span>发起拼团</div>
+						<div v-if="enoughMoney">PT币：<span>{{data.pt_price}}</span></div>
+						<div v-if="!enoughMoney"><del>PT币：<span><del>{{data.pt_price}}</del></span></del></div>
+						<div v-if="!enoughMoney" class="" style="font-size: 12px;color: #F0455C;">
+							! 您当前的持币量不满足发起拼团！
+						</div>
+						<div>类型：<span>{{data.user_num}}人团</span></div>
+					</div>
+					<div class="toastBtn">
+						<div @click="close">取消</div>
+						<div @click="sure">确定</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../plugins/swiper/swiper.min.js"></script>
+<script type="text/javascript" src="../../script/vue/vue.js"></script>
+<script type="text/javascript" src="../../script/usermgr.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script src="../../script/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	apiready = function() {
+		var tour = new Vue({
+			el: '#tourDetail',
+			data: function() {
+				return {
+					sth: 1,
+					data: [],
+					clickTour: false,
+					tourType: 1,
+					group_sn:'',
+					userNmae:usermgr.get_username(),
+					enoughMoney:true
+				}
+			},
+			created() {
+				this.init()
+			},
+			mounted() {
+				var tourSwiper = new Swiper('.swiper-container', {
+					autoplay: true,
+				});
+			},
+			methods: {
+				init(){
+					let that = this
+					api.setRefreshHeaderInfo({
+							visible: true,
+							loadingImg: 'widget://image/refresh.png',
+							bgColor: '#fff',
+							textColor: '#ccc',
+							textDown: '下拉刷新...',
+							textUp: '松开试试...',
+							showTime: true
+					}, function(ret, err) {
+						that.init()
+						setTimeout(()=>{
+							api.refreshHeaderLoadDone();
+						},1000)
+
+					});
+					var parms = {
+						url: "pintuan/get_active_detail",
+						values: {
+							active_id: api.pageParam.id
+						},
+						callback: function(ret) {
+							if(ret.data==''){
+								alert(ret.msg)
+								api.closeWin();
+							}else{
+								that.data = ret.data
+							}
+							console.log(JSON.stringify(ret))
+							console.log(that.data.content)
+						}
+					}
+					JM_POST(parms);
+				},
+				back(){
+					api.closeWin();
+				},
+				sthTAP(e) {
+					this.sth = e
+				},
+				createTour() {
+					this.tourType = 1;
+					this.group_sn = ''
+				},
+				attendTour(order) {
+					this.tourType = 2;
+				},
+				close() {
+					this.clickTour = false;
+				},
+				sure(tourType) {
+					let that = this
+					if(tourType==1){
+						var parms = {
+							url: "Pintuan/create_group",
+							values: {
+								token: usermgr.get_usertoken(),
+								active_id: api.pageParam.id
+							},
+							callback: function(ret) {
+								console.log(JSON.stringify(ret))
+								if(ret.data=='开团成功'){
+									alert(ret.data)
+									that.clickTour = false;
+									that.init()
+								}else{
+									alert(ret.msg)
+								}
+							}
+						}
+						JM_POST(parms);
+					}else{
+						var parms = {
+							url: "pintuan/prepare_order",
+							values: {
+								token:usermgr.get_usertoken(),
+								active_id: api.pageParam.id,
+								is_create:tourType==1?1:2,
+							},
+							callback: function(ret) {
+								console.log(JSON.stringify(ret))
+								if(ret.ret.data!=''){
+									if(ret.data.address_id){
+										that.enoughMoney = false
+									}else{
+										that.userNmae = ret.data.name
+										api.openWin({
+											name: 'sureOrder',
+											url: './sureOrder.html',
+											pageParam: {
+												is_create: ret.data.is_create,
+												address: ret.data.address.address_id,
+												active_id:api.pageParam.id,
+												group_sn:that.group_sn,
+												money:that.data.price
+											}
+										});
+									}
+								}else{
+									alert(ret.msg)
+								}
+							}
+						}
+						JM_POST(parms);
+					}
+
+				}
+			}
+		})
+	};
+</script>

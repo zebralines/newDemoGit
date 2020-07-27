@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../../plugins/swiper/swiper.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/transaction.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/aui.css" />
+	</head>
+	<body>
+		<div class="tourDIY" id="tourDIY" v-cloak>
+			<div class="tourDIYTop">
+				PT市场
+			</div>
+			<div class="tourTitle">
+				<div><b>自动买卖 省心放心</b></div>
+				<div>用户朋友们再也不用担心错过买卖机会啦</div>
+				<div>
+					<div @click="BuyIN">我要买入</div>
+					<div @click="BuyOut">我要卖出</div>
+				</div>
+			</div>
+			<div class="tradeList" >
+				<div class="tradeTop">
+					<div>当前实时价格：{{price}}</div>
+				</div>
+				<div class="tradeTop">
+					<div>买盘 | 数量</div>
+					<div>价格</div>
+					<div>数量 | 卖盘</div>
+				</div>
+				<div class="tradeContent">
+					<div id="">
+						<div class="tradeListS" v-for="(left,l) in listData" :key="l">
+							<div>{{left.id}}</div>
+							<div>{{left.lose_num}}</div>
+							<div class="price">{{left.price}}</div>
+						</div>
+					</div>
+					<div id="">
+						<div class="tradeRight" v-for="(right,r) in rightData" :key="r">
+							<div class="price">{{right.price}}</div>
+							<div>{{right.lose_num}}</div>
+							<div>{{right.id}}</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../plugins/swiper/swiper.min.js"></script>
+<script type="text/javascript" src="../../script/vue/vue.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+
+	    var tour = new Vue({
+	        el: '#tourDIY',
+	        data: function () {
+	            return {
+					listData: [],
+					rightData:[],
+					percent:'',
+					price:0,
+				}
+	        },
+			created() {
+				this.init()
+			},
+			mounted() {
+				var tourSwiper = new Swiper('.swiper-container',{
+					autoplay:true,
+				});
+				let that = this
+				api.setRefreshHeaderInfo({
+				    visible: true,
+				    loadingImg: 'widget://image/refresh.png',
+				    bgColor: '#fff',
+				    textColor: '#ccc',
+				    textDown: '下拉刷新...',
+				    textUp: '松开试试...',
+				    showTime: true
+				}, function(ret, err) {
+					that.init()
+					setTimeout(()=>{
+						api.refreshHeaderLoadDone();
+					},1000)
+
+				});
+			},
+	        methods:{
+				init(){
+					let that = this
+					var parms = {
+							url:"Market/index",
+							callback:function(ret){
+								console.log(JSON.stringify(ret))
+								that.listData = ret.ret.data.result.buy
+								that.rightData = ret.ret.data.result.sell
+								that.percent = ret.ret.data.result.percent
+								that.price = ret.ret.data.result.price
+							}
+					}
+					JM_GET(parms);
+				},
+	    		BuyIN(){
+	    			api.openWin({
+	    			    name: 'BuyIn',
+	    			    url: './BuyIn.html',
+						pageParam: {
+							id: this.percent,
+							price:this.price,
+						}
+
+	    			});
+	    		},
+				BuyOut(){
+					api.openWin({
+					    name: 'BuyOut',
+					    url: './BuyOut.html',
+						pageParam: {
+							id: this.percent,
+							price:this.price,
+						}
+					});
+				}
+	    	}
+	    })
+	};
+
+</script>

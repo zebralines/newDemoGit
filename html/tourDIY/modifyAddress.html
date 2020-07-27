@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>编辑地址</title>
+		<link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+		<link rel="stylesheet" type="text/css" href="../../plugins/swiper/swiper.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/aui.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/fans.css"/>
+	</head>
+	<style type="text/css">
+		.tourDIY{
+			background: #fff;
+		}
+		.chooseList{
+			width: 100%;
+			padding: 2vw 4%;
+			position: relative;
+			font-size: 14px;
+			color: #666;
+			border-top: 1px solid #eee;
+		}
+		.chooseList>div{
+			display: flex;
+			align-items: flex-start;
+		}
+		.chooseList>div:nth-child(2){
+			margin-top: 2vw;
+			justify-content: space-between;
+		}
+		.addressText{
+			width: 90%;
+		}
+		.moren{
+			width: 8vw;
+			position: absolute;
+			top: 0;
+			right: 0;
+
+		}
+		.save{
+			font-size: 13px;
+			color: #F0455C;
+			position: absolute;
+			top: 4vw;
+			right: 5vw;
+		}
+		.modifyAddress{
+			width: 100%;
+			padding: 3vw 5%;
+		}
+		.ModifyName{
+			width: 100%;
+			height: 12vw;
+			border-bottom: 1px solid #eee;
+			line-height: 12vw;
+			color: #333;
+		}
+		.ModifyName input{
+			font-size: 15px;
+		}
+		.setAddress{
+			font-size: 15px;
+			height: 15vw;
+			color: #333;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			border-top: 2vw solid #eee;
+			border-bottom: 2vw solid #eee;
+		}
+		.serADDbtn{
+			width: 12vw;
+			height: 6vw;
+			border-radius: 30px;
+			background: #f18291;
+			display: flex;
+			align-items: center;
+			justify-content: flex-end;
+			border: 1px solid #eee;
+		}
+		.serADDbtn div{
+			width: 7vw;
+			height: 7vw;
+			border-radius: 50%;
+			background: #F0280F;
+		}
+		.delAddress{
+			font-size: 15px;
+			height: 15vw;
+			color: #F0280F;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			border-bottom: 2vw solid #eee;
+		}
+	</style>
+	<body>
+		<div class="tourDIY box-warp" id="tourDIY" v-cloak>
+			<div class = 'normal-head-box' id = 'header'>
+			     <div class = 'padding-t-10'>
+			        <img src="../../image/back.png" class = 'normal-bk-img'>
+
+			        <p class = 'normal-head-title'>编辑地址</p>
+			        <div class="save" @click="saveModify">保存</div>
+			     </div>
+			</div>
+			<div style="width: 100px;height: 22vw;">
+
+			</div>
+			<div class="modifyAddress">
+				<div class="ModifyName">
+					<input type="text" v-model="addressData.name" name="" id="" value="" placeholder="请输入姓名"/>
+				</div>
+				<div class="ModifyName">
+					<input type="number" v-model="addressData.phone" name="" id="" value="" placeholder="请输入您的手机号码"/>
+				</div>
+				<div class="ModifyName"  @click="chooseAddress">
+					{{addresspcc.province!=''?addresspcc.province+'-'+addresspcc.city+'-'+addresspcc.region:'请选择'}}
+				</div>
+				<div class="ModifyName">
+					<input type="text" v-model="addressData.detail" name="" id="" value="" placeholder="请输入您的详细地址"/>
+				</div>
+				<div class="setAddress">
+					设为默认地址
+					<div class="serADDbtn" :style="{'justify-content':defult?'flex-end':'flex-start','background':defult?'':'#fff'}" @click="defultTAp">
+						<div></div>
+					</div>
+				</div>
+				<div class="delAddress" @click="delAddress">
+					删除此收货地址
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../plugins/swiper/swiper.min.js"></script>
+<script type="text/javascript" src="../../script/vue/vue.js"></script>
+<script type="text/javascript" src="../../script/usermgr.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+		$api.fixStatusBar( $api.dom('#header') );
+		$api.fixStatusBar( $api.dom('.head_classify') );
+	    var tour = new Vue({
+	        el: '#tourDIY',
+	        data: function () {
+	            return {
+					addressid: '',
+					defult:false,
+					addressData:{
+						token:usermgr.get_usertoken(),
+						name:'',
+						phone:'',
+						region:'',
+						detail:"",
+						address_id:'',
+						addressListJson:{},
+					},
+					addresspcc:{
+						province:'',
+						city:'',
+						region:''
+					}
+				}
+	        },
+			created() {
+				if(api.pageParam.id){
+					this.addressid = api.pageParam.id
+					if(api.pageParam.defult){
+						this.defult = true
+					}
+					this.addressData.addressid = api.pageParam.id
+				}
+				this.init()
+			},
+			mounted() {
+				var tourSwiper = new Swiper('.swiper-container',{
+					autoplay:true,
+				});
+				$api.addEvt($api.dom('.normal-bk-img'), 'click', function(){
+				     api.closeWin();
+				});
+			},
+	        methods:{
+				defultTAp(){
+					this.defult = !this.defult
+					let that = this
+					if(this.defult){
+						var parms = {
+						    url:"Address/setDefault",
+						    values:{
+								token:usermgr.get_usertoken(),
+							    address_id:this.addressid
+						    },
+						    callback:function(ret){
+								console.log(JSON.stringify(ret))
+						    }
+						}
+						JM_POST(parms);
+					}
+				},
+				chooseAddress(){
+					let that = this
+					var UIPopupsPicker = api.require('UIPopupsPicker');
+					UIPopupsPicker.open({
+					    rect:{
+					    x: 30,
+					    y: 100,
+					    w: api.frameWidth - 60,
+					    h: 245
+					   },
+					   styles:{
+					   maskBg:'rgba(0,0,0,0.4)',
+					   bg:'#fff',
+					   button: {
+					        size: 12,
+					        titleColor:'#ffffff'
+					           },
+					   color:'#5B5B5B',
+					   resource:'widget://res/city.json',
+					   fontColor: '#ffffff',
+					   selectedColor:'#8B0000',
+					},
+					    fixedOn: api.frameName,
+					    fixed:true,
+					}, function(ret, err) {
+					    if (ret) {
+					        // alert(JSON.stringify(ret));
+							that.addresspcc.province = ret.province;
+							that.addresspcc.city = ret.city;
+							that.addresspcc.region = ret.county;
+							that.addressData.region = ret.province+','+ret.city+','+ret.county
+					    } else {
+					        // alert(JSON.stringify(err));
+					    }
+					});
+				},
+				saveModify(){
+					let that = this
+					if(!that.addressData.token){
+						that.addressData.token = usermgr.get_usertoken()
+					}
+					if(this.addressid==''){
+						var parms = {
+						    url:"Address/add",
+						    values:that.addressData,
+						    callback:function(ret){
+								console.log(JSON.stringify(ret))
+								if(ret.ret.code==1){
+									api.alert({
+									    title: '添加成功',
+									},function(ret,err){
+										  api.openWin({
+											name: 'main',
+											url: 'widget://html/main.html',
+											bounces: false,
+											vScrollBarEnabled: false,
+											hScrollBarEnabled: false,
+											slidBackEnabled: false
+											});
+									})
+								}
+						    }
+						}
+						JM_POST(parms);
+					}else{
+						var parms = {
+						    url:"Address/edit",
+						    values:that.addressData,
+						    callback:function(ret){
+								console.log(JSON.stringify(ret))
+								if(ret.ret.code==1){
+									api.alert({
+									    title: '修改成功',
+									},function(ret,err){
+										  api.openWin({
+											name: 'main',
+											url: 'widget://html/main.html',
+											bounces: false,
+											vScrollBarEnabled: false,
+											hScrollBarEnabled: false,
+											slidBackEnabled: false
+											});
+									})
+								}
+						    }
+						}
+						JM_POST(parms);
+					}
+
+				},
+				delAddress(){
+					let that = this
+					api.confirm({
+					    title: '提示',
+					    msg: '确定删除吗',
+					    buttons: ['确定', '取消']
+					}, function(ret, err) {
+					    var index = ret.buttonIndex;
+						if(index==1){
+							var parms = {
+							    url:"Address/delete",
+							    values:{
+									token:usermgr.get_usertoken(),
+								    address_id:that.addressid
+							    },
+							    callback:function(ret){
+									console.log(JSON.stringify(ret))
+									if(ret.ret.code==1){
+										api.closeWin();
+									}
+							    }
+							}
+							JM_POST(parms);
+						}
+					});
+
+				},
+				init(){
+					let that = this
+					if(this.addressid!=''){
+						var parms = {
+						    url:"Address/detail",
+						    values:{
+								token:usermgr.get_usertoken(),
+							    address_id:this.addressid
+						    },
+						    callback:function(ret){
+								console.log(JSON.stringify(ret))
+								that.addressData = ret.data.detail
+								that.addresspcc = ret.data.detail.region
+						    }
+						}
+						JM_POST(parms);
+					}
+
+					var parms = {
+						url:"Address/regionList",
+						callback:function(ret){
+							console.log(JSON.stringify(ret))
+						}
+					}
+					JM_GET(parms);
+				},
+	    		tourDetail(){
+	    			api.openWin({
+	    			    name: 'tourdetail',
+	    			    url: './tourDIYDetail.html'
+	    			});
+	    		}
+	    	}
+	    })
+	};
+
+</script>

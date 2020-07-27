@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>充值</title>
+		<link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+		<link rel="stylesheet" type="text/css" href="../../plugins/swiper/swiper.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/aui.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/fans.css"/>
+	</head>
+	<style type="text/css">
+		.tourDIY{
+			background: #fff;
+		}
+		.navTab{
+			width: 100%;
+			height: 10vw;
+			border-top: 1px solid #eee;
+			padding: 0 10%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: #666;
+		}
+		.navTab div{
+			width: 33%;
+			height: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 14px;
+		}
+		.activeTab{
+			color: #F0455C;
+			position: relative;
+		}
+		.activeTab:after{
+			width: 12vw;
+			height: 2px;
+			background: #F0455C;
+			position: absolute;
+			top: 9vw;
+			left: 7vw;
+			content: '';
+		}
+		.navContent{
+			width: 100%;
+			padding: 2vw 4%;
+		}
+		.ContentList,.ContentList2{
+			width: 100%;
+			padding: 3vw 0;
+			border-bottom: 1px solid #eee;
+			display: flex;
+			align-items: center;
+		}
+		.ContentList img{
+			width: 25vw;
+			height: 25vw;
+			margin-right: 3vw;
+			color: #333;
+			border-radius: 3px;
+		}
+		.tourText,.tourText2{
+			font-size: 15px;
+			width: 70%;
+		}
+		.tourText>div:nth-child(1),.tourText2>div:nth-child(1){
+			font-size: 17px;
+		}
+		.tourText>div:nth-child(2){
+			font-size: 16px;
+			color: #F0455C;
+			margin: 2vw 0;
+		}
+		.tourText>div:nth-child(3){
+			font-size: 14px;
+			color: #999;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+		.WonderType{
+			width: 15vw;
+			height: 7vw;
+			border-radius: 3px;
+			color: #fff;
+			font-size: 13px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: #F0455C;
+		}
+		.ContentList2 img{
+			width: 33vw;
+			height: 25vw;
+			border-radius: 3px;
+			margin-right: 3vw;
+		}
+		.tourText2>div:nth-child(2){
+			margin: 2vw 0;
+			font-size: 16px;
+			color: #666;
+		}
+		.tourText2>div:nth-child(3){
+			margin: 2vw 0;
+			font-size: 15px;
+			color: #999;
+		}
+		.succOrder{
+			width: 100%;
+			padding: 2vw 5%;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			font-size: 15px;
+			color: #666;
+		}
+		.wonderBtn{
+			width: 100%;
+			display: flex;
+			align-items: center;
+			height: 12vw;
+			justify-content: flex-end;
+
+		}
+		.wonderBtn>div{
+			width: 30vw;
+			height: 9vw;
+			border-radius: 30px;
+			color: #fff;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: #F0455C;
+			font-size: 14px;
+		}
+		.rechangeInput{
+			width:100%;
+			padding: 2vw;
+			border-bottom: 1px solid #eee;
+		}
+		.rechangeText{
+			font-size: 14px;
+			color: #666;
+			margin-top: 5vw;
+		}
+		.payMent{
+			width: 100%;
+			padding: 3vw 5%;
+			font-size: 15px;
+			padding-top: 4vw;
+		}
+		.payMentWx{
+			width: 100%;
+			height: 12vw;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+		.payMentWx div{
+			display: flex;
+			align-items: center;
+		}
+		.payMentWx img{
+			width: 6vw;
+			margin-right: 3vw;
+		}
+		.choose{
+			width:6vw;
+			height:6vw;
+			border: 1px solid #eee;
+			border-radius: 50%;
+		}
+		.bottomPay{
+			width: 100%;
+			display: flex;
+			align-items: center;
+			height: 12vw;
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			z-index: 0;
+			box-shadow: 1px 1px 10px #eee;
+		}
+		.bottomPay>div:nth-child(1){
+			font-size: 14px;
+			width: 50%;
+			padding-left: 6%;
+		}
+		.bottomPay>div:nth-child(1) span{
+			font-size: 18px;
+			color: #F0455C;
+		}
+		.bottomPay>div:nth-child(2){
+			font-size: 14px;
+			width: 50%;
+			height: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: #fff;
+			background: #F0455C;
+		}
+		.sureBtn{
+			width: 100%;
+			height: 11vw;
+			color: #fff;
+			background: #F0455C;
+			border-radius: 30px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin-top: 10vw;
+		}
+	</style>
+	<body>
+		<div class="tourDIY box-warp" id="tourDIY">
+			<div class = 'normal-head-box' id = 'header'>
+			     <div class = 'padding-t-10'>
+			        <img src="../../image/back.png" class = 'normal-bk-img'>
+			        <p class = 'normal-head-title'>充值</p>
+			     </div>
+			</div>
+			<div style="width: 100px;height: 18vw;">
+
+			</div>
+			<div class="navContent">
+				<div class="">
+					<div class="rechangeInput">
+						<input type="number" v-model="price" placeholder="请输入充值金额">
+					</div>
+					<div class="rechangeText">
+						<div>支付方式</div>
+						<div class="payMent">
+							<div class="payMentWx" @click="wxPay(1)">
+								<div>
+									<img src="../../image/rename5.png" >
+									微信支付
+								</div>
+								<div class="choose ">
+									<img v-if="payType==1" src="../../image/chose.png" >
+								</div>
+							</div>
+							<div class="payMentWx" @click="wxPay(2)">
+								<div>
+									<img src="../../image/rename6.png" >
+									支付宝支付
+								</div>
+								<div class="choose">
+									<img v-if="payType==2" src="../../image/chose.png" >
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="sureBtn" @click="rechange">
+					立即充值
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../plugins/swiper/swiper.min.js"></script>
+<script type="text/javascript" src="../../script/vue/vue.js"></script>
+<script type="text/javascript" src="../../script/jquery.min.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript" src="../../script/usermgr.js"></script>
+<script type="text/javascript" src="../../script/user/fensi.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+		$api.fixStatusBar( $api.dom('#header') );
+		$api.fixStatusBar( $api.dom('.head_classify') );
+	    var tour = new Vue({
+	        el: '#tourDIY',
+	        data: function () {
+	            return {
+					navTb: '',
+					dateType:'',
+					payType:1,
+					price:''
+				}
+	        },
+			created() {
+
+			},
+			mounted() {
+				var tourSwiper = new Swiper('.swiper-container',{
+					autoplay:true,
+				});
+				$api.addEvt($api.dom('.normal-bk-img'), 'click', function(){
+					console.log(111111111)
+					api.closeWin();
+				});
+			},
+	        methods:{
+				wxPay(e){
+					this.payType = e
+				},
+	    		tourDetail(){
+	    			api.openWin({
+	    			    name: 'tourdetail',
+	    			    url: './tourDIYDetail.html'
+	    			});
+	    		},
+				navTap(e){
+					this.navTb = e
+					this.dateType = e
+				},
+				rechange(){
+					let that = this
+					var wxPayPlus = api.require('wxPayPlus');
+					var aliPayPlus = api.require('aliPayPlus');
+					var parms = {
+						url: "User/recharge",
+						values: {
+							token: usermgr.get_usertoken(),
+							price: this.price,
+							type:this.payType
+						},
+						callback: function(ret) {
+							console.log(JSON.stringify(ret))
+							if(ret.data!=''){
+								if(that.payType==2){
+									aliPayPlus.payOrder({
+									    orderInfo: ret.data.toString()
+									}, function(ret, err) {
+									    // api.alert({
+									    //     title: '支付结果',
+									    //     msg: ret.code,
+									    //     buttons: ['确定']
+									    // });
+										if(ret){
+
+											api.sendEvent({
+												name: 'recganges'
+											});
+											api.closeWin();
+										}
+									});
+								}else{
+									wxPayPlus.payOrder({
+									    apiKey: ret.data.appid.toString(),
+									    orderId: ret.data.prepayid.toString(),
+									    mchId: ret.data.partnerid.toString(),
+									    nonceStr: ret.data.noncestr.toString(),
+									    timeStamp: ret.data.timestamp.toString(),
+									    package: "Sign=WXPay",
+									    sign: ret.data.sign.toString()
+									}, function(ret, err) {
+									    if (ret.status) {
+									        //支付成功
+											api.sendEvent({
+												name: 'recganges'
+											});
+											api.closeWin();
+									    } else {
+									        // alert(err.code);
+									    }
+									});
+
+
+								}
+							}else{
+								alert(ret.msg)
+							}
+						}
+					}
+					JM_POST(parms);
+				}
+	    	}
+	    })
+	};
+
+</script>

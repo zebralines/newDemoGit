@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>拼团</title>
+		<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../../plugins/swiper/swiper.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/tourDIY.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/aui.css" />
+	</head>
+	<style type="text/css">
+		.toastCon{
+			width: 100vw;
+			height: 100vh;
+			background: rgba(0,0,0,.5);
+			position: fixed;
+			top: 0;
+			left: 0;
+			z-index: 100;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+		.toastWhite{
+			width: 80%;
+			background: #fff;
+			border-radius: 10px;
+			font-size: 14px;
+			color: #333;
+		}
+		.toastText{
+			width: 100%;
+			padding: 2vw 5%;
+		}
+		.toastText span{
+			color: #F0455C;
+			display: inline-block;
+			margin: 0 1vw;
+		}
+		.toastText>div{
+			margin: 1.5vw 0;
+		}
+		.toastBtn{
+			width: 100%;
+			display: flex;
+			align-items: center;
+			border-top: 1px solid #eee;
+			height: 12vw;
+
+		}
+		.toastBtn div{
+			font-size: 15px;
+			width: 50%;
+			height: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+		.toastBtn div:nth-child(2){
+			border-left: 1px solid #eee;
+			color: #F0455C;
+		}
+		.searchCon{
+			width: 100%;
+			padding: 3vw 4%;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+		.searchCon input{
+			width: 80%;
+			height: 10vw;
+			padding-left: 3vw;
+			border-radius: 30px;
+			background: #eee;
+			font-size: 14px;
+		}
+		.searchThis{
+			width: 20vw;
+			height: 9.5vw;
+			border-radius: 10px;
+			color: #fff;
+			background: #F0455C;
+			font-size: 13px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin-left: 3vw;
+		}
+
+	</style>
+	<body>
+		<div class="tourDIY" id="tourDIY" v-cloak>
+			<div class="tourDIYTop">
+				拼团
+				<img src="../../image/rename4.png" @click="searchT">
+			</div>
+			<div class="searchCon" v-if="search">
+				<input type="text" v-model="searchText" placeholder="请输入你要搜索的内容">
+				<div class="searchThis" @click="searchThis">
+					搜索
+				</div>
+			</div>
+			<div class="navTab">
+				<div :class="navTab==s?'navTabActive':''" v-for="(system,s) in typeList" :key="s" @click="navTap(s,system.id)">{{system.name}}</div>
+			</div>
+			<div class="tourSwiper">
+				<div class="swiper-container">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide" v-for="(banner,b) in bannerList" :key="b">
+							<img :src="banner.img" >
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="tourShop">
+				<div class="tourList" @click="tourDetail(item.id)" v-for="(item,i) in tourList" :key="i">
+					<div>
+						<img :src="item.thumb" >
+					</div>
+					<div>
+						<div class="rightTitle"><b>{{item.title}}</b></div>
+						<div class="rightprice">
+							<b>￥{{item.price}}</b> <del>￥{{item.goods_price}}</del>
+						</div>
+						<div>
+							<!-- <div class="tourProgress">
+								<div id="" :style="{'width':item.group_order.count==0?'0':(item.group_order.count*100)/item.user_num+'%'}">
+
+								</div>
+							</div> -->
+						</div>
+						<div class="tourText">
+							已拼{{item.group_order.count}}人 还剩{{item.user_num - item.group_order.count}}人
+						</div>
+						<div class="tourTime">
+							距离结束仅剩：<div class="timeS">{{item.shi}}</div>时<div class="timeS">{{item.fen}}</div>分<div class="timeS">{{item.miao}}</div>秒
+						</div>
+						<div class="tourBtn">
+							<div>{{item.user_num}}人拼团</div>
+							<div>立即开团</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</body>
+</html>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../plugins/swiper/swiper.min.js"></script>
+<script type="text/javascript" src="../../script/vue/vue.js"></script>
+<script type="text/javascript" src="../../script/usermgr.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+
+	    var tour = new Vue({
+	        el: '#tourDIY',
+	        data: function () {
+	            return {
+					clickTour: false ,
+					search:false,
+					searchText:'',
+					typeList:[],
+					navTab:0,
+					typeId:'',
+					tourList:[],
+					bannerList:[],
+					timer:null
+				}
+	        },
+			created() {
+				this.type()
+				this.banner()
+			},
+			mounted() {
+				var tourSwiper = new Swiper('.swiper-container',{
+					autoplay:true,
+					observer:true,//修改swiper自己或子元素时，自动初始化swiper
+					observeParents:true
+				});
+				api.addEventListener({
+					name:'frame_tour'
+				},function(){
+					api.closeWin();
+				})
+			},
+			beforeRouteLeave() {
+			    for (let i = 1; i < 99999; i++) {
+			    	clearInterval(i);
+			    }
+			},
+	        methods:{
+				type(){
+					let that = this
+					var parms = {
+							url:"Market/typelist",
+							callback:function(ret){
+								console.log(JSON.stringify(ret))
+								that.typeList = ret.data.list
+								that.typeId = ret.data.list[0].id
+								that.active()
+							}
+					}
+					JM_GET(parms);
+				},
+				banner(){
+					let that = this
+					var parms = {
+							url:"Market/bannerlist",
+							callback:function(ret){
+								that.bannerList = ret.data.list
+							}
+					}
+					JM_GET(parms);
+				},
+				active(){
+					let that = this
+					var parms = {
+					    url:"pintuan/get_active_list",
+					    values:{
+						   token:usermgr.get_usertoken(),
+					       search:this.searchText,
+					       type_id:this.typeId
+					    },
+					    callback:function(ret){
+							console.log(JSON.stringify(ret))
+							that.timeJIshi(ret.data)
+					    }
+					}
+					JM_POST(parms);
+				},
+				timeJIshi(data){
+					let that = this
+					if(data==''){
+						that.tourList = data
+						for (let i = 1; i < 99999; i++) {
+							clearInterval(i);
+						}
+					}else{
+						for(let i in data){
+							that.timer = setInterval(()=>{
+								data[i].assemble_time--;
+								if(parseInt(data[i].assemble_time%60)<10){
+									data[i].miao = '0'+parseInt(data[i].assemble_time%60)
+								}else{
+									data[i].miao = parseInt(data[i].assemble_time%60)
+								}
+								if(data[i].assemble_time>60){
+									if(parseInt(data[i].assemble_time/60%60)<10){
+										data[i].fen = '0'+parseInt(data[i].assemble_time/60%60)
+									}else{
+										data[i].fen = parseInt(data[i].assemble_time/60%60)
+									}
+								}else{
+									data[i].fen = '00'
+								}
+								if(data[i].assemble_time>3600){
+									if(parseInt(data[i].assemble_time/3600%24)<10){
+										data[i].shi = '0'+parseInt(data[i].assemble_time/3600%24)
+									}else{
+										data[i].shi = parseInt(data[i].assemble_time/3600%24)
+									}
+								}else{
+									data[i].shi = '00'
+								}
+								if(data[i].assemble_time==0){
+									// clearInterval(that.timer)
+									// that.active()
+									window.location.reload()
+								}
+								// console.log(data)
+								that.tourList = data
+							},1000)
+						}
+					}
+
+				},
+				createTour(){
+
+				},
+	    		tourDetail(id){
+					console.log(id)
+	    			api.openWin({
+	    			    name: 'tourdetail',
+	    			    url: './tourDIYDetail.html',
+						pageParam: {
+							id: id
+						}
+	    			});
+	    		},
+				searchT(){
+					this.search = !this.search
+				},
+				navTap(e,id){
+					this.navTab = e
+					this.typeId = id
+					for (let i = 1; i < 99999; i++) {
+						clearInterval(i);
+					}
+					this.active()
+				},
+				searchThis(){
+					for (let i = 1; i < 99999; i++) {
+						clearInterval(i);
+					}
+					this.active()
+				}
+	    	}
+	    })
+			//下拉刷新
+			 api.setRefreshHeaderInfo({
+					 visible: true,
+					 loadingImg: 'widget://image/refresh.png',
+					 bgColor: '#fff',
+					 textColor: '#ccc',
+					 textDown: '下拉刷新...',
+					 textUp: '松开试试...',
+					 showTime: true
+			 }, function(ret, err) {
+				 setTimeout(()=>{
+					 api.refreshHeaderLoadDone();
+				 },1000)
+
+			 });
+			//下拉刷新
+	};
+
+</script>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>文章详情</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+     <link rel="stylesheet" type="text/css" href="../plugins/swiper/swiper.min.css"/> 
+    <link rel="stylesheet" type="text/css" href="../css/aui.css"/>  
+    <link rel="stylesheet" type="text/css" href="../css/common.css"/>   
+     <link rel="stylesheet" type="text/css" href="../css/shoucang.css"/> 
+    <style>
+      .normal-head-box{
+        background-image: url('../image/banner/copybanner.png');
+        /*padding-bottom: 50px;*/
+      }
+      .normal-head-title{
+        color:#fff;
+      }
+       
+      
+        .aui-list-item-title{
+            font-size: 18px !important;font-weight: normal !important;
+        }
+        .margin-t{
+            margin-top: 10px;
+        }
+        .read-peo{
+            width: 20px;height: 20px;display: inline-block;border-radius: 50%;vertical-align: middle;
+        }
+        .read-name{
+            font-size:12px;
+        }
+        .loock-img{
+            width: 15px;height: 15px;display: inline-block;vertical-align: middle;
+        }
+        .look-nums{
+            font-size: 12px;color:#757575;vertical-align: middle;margin-right: 5px;
+        }
+        .danpin{
+            font-size: 12px;width: 50px;height: 25px;line-height: 25px;border:2px solid red;float: right;text-align: center;color:red;border-radius: 5px;
+        }
+        .read-body{
+            margin-top: 15px;
+            color:#2c2c2c;
+            font-size: 15px;
+            font-family: 幼圆;
+            letter-spacing:2px !important;
+            font-weight: bolder;
+        }
+    </style>
+</head>
+<body>
+    <div class = 'box-warp'>
+
+        <div class = 'normal-head-box' id = 'header'>
+             <div class = 'padding-t-10'>
+                <img src="../image/backw.png" class = 'normal-bk-img'>    
+                <p class = 'normal-head-title'>特别的情人怎么过</p>  
+                
+             </div>
+        </div>
+
+        <div>
+                            <ul class="aui-list aui-media-list">
+                                <li class="aui-list-item">
+                                    <div class="aui-list-item-inner">
+                                        <div class="aui-list-item-title">
+                                            <span>#甜蜜约会大作战#</span>
+                                        </div>
+                                        <div>
+                                            <img src="../image/banner/look.png" class = 'loock-img'>
+                                            <span class = 'look-nums'>1011</span>
+                                            <img src="../image/banner/collect_gray.png" class = 'loock-img'>
+                                            <span class = 'look-nums'>11</span>   
+                                        </div>
+
+                                        <div class = 'content-box read-body'>
+                                           借助栅格来实现图片列表借助栅格来实现图片列表借助栅格来实现图片列表借助栅格来实现图片列表借助栅格来实现图片列表<img src="../image/banner/qing.png">今年的情人节阿萨达爱上大声道阿萨达阿萨达爱迪生啊飒飒的阿萨达阿萨达阿萨达阿萨达阿萨达爱迪生啊飒飒的阿萨达阿萨达阿萨达阿萨达阿萨达爱迪生啊飒飒的阿萨达阿萨达阿萨达阿萨达阿萨达爱迪生啊飒飒的阿萨达阿萨达阿萨达阿萨达<img src="../image/banner/qing.png">
+                                        </div>
+
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+       
+    </div>    
+       
+    
+
+</body>
+</html>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../plugins/swiper/swiper.min.js"></script>
+<script type="text/javascript" src="../script/jquery.min.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript">
+apiready = function () {
+     $api.fixStatusBar( $api.dom('#header') );
+}  
+    var classify_data =new Array()
+    classify_data[0]="<span>综合</span>";
+    classify_data[1]="<span>好物</span>";
+    classify_data[2]="<span>潮流</span>";
+    classify_data[3]="<span>美食</span>";
+    classify_data[4]="<span>生活</span>";
+    var swiper = new Swiper('#swiper-container-one', {
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+            renderBullet: function (index, className) {
+                // return '<span class="' + className + '">' + (index + 1) + '</span>';
+                return '<span class="' + className + '">' + (classify_data[index]) + '</span>';
+            },
+          },
+          autoHeight: true,
+          observer:true,
+          observeParents:true,
+          resistanceRatio : 0,
+          //监听滚动事件
+          on:{
+            slideChangeTransitionStart: function () {
+                // console.log(this.realIndex);
+                var swiper_index = this.realIndex;
+                
+                // swiper-slide-active
+                var slide_height = $("#swiper-container-one").find(".swiper-wrapper").find(".swiper-slide-active").find(".slide-box").height();
+            
+
+                
+            }
+          },
+
+    });
+</script>

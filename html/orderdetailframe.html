@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>我的订单</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../plugins/swiper/swiper.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/orderdetail.css"/>
+    <style>
+
+    </style>
+</head>
+<body>
+    <div class = 'box-warp'>
+
+        <div class = 'normal-head-box' id = 'header'>
+             <div class = 'padding-t-10'>
+                <img src=".../image/backw.png" class = 'normal-bk-img'>    
+                <img src="../image/fs1.png" class = 'normal-r-img'>
+                <p class = 'normal-head-title'>线上订单</p>
+             </div>
+        </div>
+
+         <div class = 'head_classify' style = "background-color: #fff;">
+            <div class="swiper-pagination" ></div>
+        </div>
+
+        <div class="swiper-container hg-100" id = "swiper-container-one">
+             <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                     <div class="aui-content aui-margin-b-15">
+                        <ul class="aui-list aui-media-list good-chose">
+                            <li class="aui-list-item">
+                                <div class="aui-media-list-item-inner">
+                                    <div class="aui-list-item-media">
+                                        <img src="../image/frame0/goods1.jpg">
+                                    </div>
+                                    <div class="aui-list-item-inner">
+
+                                        <div class="aui-list-item-text">
+                                            <div class="aui-list-item-title ellipsis-1">壹农壹果冰糖橙壹农壹果冰糖壹农壹果冰糖</div>
+                                        </div>
+
+                                        <div class="aui-list-item-text good-time">
+                                            <div class="goods-text">
+                                               <span class = 'scal-8'>创建日 01-03 18:25</span>
+                                            </div>
+                                             <div class="goods-text">
+                                               <span class = 'scal-8'>结算日 01-03 18:25</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="aui-list-item-text">
+                                            <div class="goods-order">
+                                                <span class = "order-num scal-9">311241152511241234</span>
+                                            </div>
+                                            <div><span class = 'fz-12 scal-8 copy-span'>复制</span></div>
+                                        </div>
+
+                                        <div class="aui-list-item-text">
+                                            <div class="goods-bottom">
+                                                <span class = 'fz-12'>消费金额:<span>￥ 13.8</span></span>
+
+                                                <span class ="span-cc-bg" style = "display:inline-block;float: right;">预估收益
+                                                    ￥<span>5.39</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                     </div>
+                </div>
+
+                 <div class="swiper-slide">
+                    暂无订单
+                </div>
+
+                 <div class="swiper-slide">
+                    暂无订单
+                </div>
+
+                <div class="swiper-slide">
+                    暂无订单
+                </div>
+             </div>
+
+        </div>
+    </div>
+
+
+</body>
+</html>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../plugins/swiper/swiper.min.js"></script>
+<script type="text/javascript" src="../script/jquery.min.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript">
+apiready = function () {
+     $api.fixStatusBar( $api.dom('#header') );
+}
+
+
+var classify_data =new Array()
+classify_data[0]="全部";
+classify_data[1]="已付款";
+classify_data[2]="已结算";
+classify_data[3]="已失效";
+
+var swiper = new Swiper('#swiper-container-one', {
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+        renderBullet: function (index, className) {
+            return '<span class="' + className + '">' + (classify_data[index]) + '</span>';
+        },
+      },
+      autoHeight: true,
+      observer:true,
+      observeParents:true,
+
+
+});
+</script>
